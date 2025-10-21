@@ -1,14 +1,11 @@
 # ...existing code...
-if __name__ == "__main__":
-    main()
-# ...existing code...
 import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-DATA_PATH = "data/pred-mai-mef-dhup.csv"
+DATA_PATH = "pred-mai-mef-dhup.csv"
 OUT_DIR = "outputs"
 os.makedirs(OUT_DIR, exist_ok=True)
 
@@ -99,3 +96,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+# ...existing code...
