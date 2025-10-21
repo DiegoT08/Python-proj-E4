@@ -1,0 +1,4 @@
+Histogramme
+carte géographique 
+statistiques descriptives
+autres graphes

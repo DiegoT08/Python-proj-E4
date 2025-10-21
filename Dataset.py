@@ -12,7 +12,7 @@ os.makedirs(OUT_DIR, exist_ok=True)
 def load_data(path):
     if not os.path.exists(path):
         raise FileNotFoundError(f"{path} introuvable. Copiez le CSV dans le dossier data/")
-    df = pd.read_csv(path, low_memory=False)
+    df = pd.read_csv(path, sep=';', encoding='utf-8', low_memory=False)
     return df
 
 def summary(df):
