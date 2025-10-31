@@ -42,6 +42,30 @@ folium.Choropleth(
     highlight=True
 ).add_to(m)
 
+
+# === 6️⃣ bis Ajouter les noms des départements au premier plan ===
+for feature in geo_json["features"]:
+    try:
+        # Coordonnées approximatives pour placer le label
+        coords = feature["geometry"]["coordinates"][0][0]
+        lon = sum([c[0] for c in coords]) / len(coords)
+        lat = sum([c[1] for c in coords]) / len(coords)
+        nom = feature["properties"]["nom"]
+
+        folium.map.Marker(
+            [lat, lon],
+            icon=folium.DivIcon(
+                html=f'<div style="font-size:10px; color:black; '
+                     f'font-weight:bold; text-align:center;">{nom}</div>'
+            )
+        ).add_to(m)
+    except Exception as e:
+        print(f"Erreur label pour {feature['properties'].get('nom', 'inconnu')} : {e}")
+
+# Ajouter un contrôle pour activer/désactiver les noms
+folium.LayerControl().add_to(m)
+
+
 # === 6️⃣ Ajouter des popups dynamiques avec les valeurs ===
 for _, row in df_dep.iterrows():
     dep_code = row['DEP']
