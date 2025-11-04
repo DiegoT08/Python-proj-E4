@@ -1,7 +1,8 @@
 import pandas as pd
 import folium
-import json
 import requests
+import json
+from datetime import datetime
 
 # === 1️⃣ Charger les données nettoyées ===
 DATA_PATH = "data/cleaned/pred-mai-mef-dhup_clean.csv"
@@ -9,74 +10,94 @@ df = pd.read_csv(DATA_PATH, sep=';')
 print("Données chargées :", df.shape)
 
 # === 2️⃣ Préparer les données ===
-# On garde uniquement les colonnes utiles
 df = df[['DEP', 'loypredm2']].dropna()
 df['loypredm2'] = df['loypredm2'].astype(float)
-
-# Calcul du loyer moyen par département
 df_dep = df.groupby('DEP', as_index=False)['loypredm2'].mean()
 print("Nombre de départements :", len(df_dep))
 
-# === 3️⃣ Charger les frontières géographiques des départements (GeoJSON) ===
+# === 3️⃣ Télécharger les frontières géographiques (GeoJSON) ===
 geo_url = "https://france-geojson.gregoiredavid.fr/repo/departements.geojson"
 response = requests.get(geo_url)
 if response.status_code != 200:
-    raise Exception(f"Erreur de téléchargement du GeoJSON ({response.status_code})")
+    raise Exception(f"Erreur lors du téléchargement du GeoJSON ({response.status_code})")
 geo_json = response.json()
 print("Fichier GeoJSON chargé avec succès.")
 
 # === 4️⃣ Créer la carte Folium ===
-m = folium.Map(location=[46.6, 2.5], zoom_start=6, tiles='OpenStreetMap')
+# (carte standard avec labels et fond clair)
+m = folium.Map(
+    location=[46.6, 2.5],
+    zoom_start=6,
+    tiles="OpenStreetMap"
+)
 
-# === 5️⃣ Ajouter la couche choroplèthe (carte colorée) ===
+# === 5️⃣ Ajouter la couche choroplèthe ===
 folium.Choropleth(
     geo_data=geo_json,
-    name="choropleth",
+    name="Loyers moyens",
     data=df_dep,
     columns=["DEP", "loypredm2"],
     key_on="feature.properties.code",
-    fill_color="YlOrRd",         # palette jaune → rouge
+    fill_color="YlOrRd",   # jaune → rouge
     fill_opacity=0.7,
     line_opacity=0.3,
     legend_name="Loyer moyen au m² (€)",
     highlight=True
 ).add_to(m)
 
+# === 6️⃣ Ajouter un tooltip (infobulle au survol) ===
+# On relie chaque polygone à ses infos (nom + valeur)
+folium.GeoJson(
+    geo_json,
+    name="Départements",
+    style_function=lambda x: {"fillColor": "transparent", "color": "transparent", "weight": 0},
+    tooltip=folium.GeoJsonTooltip(
+        fields=["nom"],
+        aliases=["Département :"],
+        labels=True,
+        sticky=True
+    )
+).add_to(m)
 
-# === 6️⃣ bis Ajouter les noms des départements au premier plan ===
-for feature in geo_json["features"]:
-    try:
-        # Coordonnées approximatives pour placer le label
-        coords = feature["geometry"]["coordinates"][0][0]
-        lon = sum([c[0] for c in coords]) / len(coords)
-        lat = sum([c[1] for c in coords]) / len(coords)
-        nom = feature["properties"]["nom"]
-
-        folium.map.Marker(
-            [lat, lon],
-            icon=folium.DivIcon(
-                html=f'<div style="font-size:10px; color:black; '
-                     f'font-weight:bold; text-align:center;">{nom}</div>'
-            )
-        ).add_to(m)
-    except Exception as e:
-        print(f"Erreur label pour {feature['properties'].get('nom', 'inconnu')} : {e}")
-
-# Ajouter un contrôle pour activer/désactiver les noms
-folium.LayerControl().add_to(m)
-
-
-# === 6️⃣ Ajouter des popups dynamiques avec les valeurs ===
+# On ajoute aussi le loyer moyen depuis notre DataFrame
 for _, row in df_dep.iterrows():
     dep_code = row['DEP']
     value = round(row['loypredm2'], 2)
-    folium.Marker(
-        location=[46.6, 2.5],  # position par défaut remplacée plus bas
-        popup=f"Département {dep_code} : {value} €/m²"
-    )
 
-# === 7️⃣ Sauvegarder la carte ===
-OUTPUT_PATH = "outputs/carte_loyers_dep.html"
+    # On cherche la géométrie correspondante
+    for feature in geo_json["features"]:
+        if feature["properties"]["code"] == dep_code:
+            feature["properties"]["loypredm2"] = f"{value} €/m²"
+
+# Tooltip avec nom + valeur
+folium.GeoJson(
+    geo_json,
+    style_function=lambda feature: {
+        "fillColor": "transparent",
+        "color": "transparent",
+        "weight": 0,
+    },
+    tooltip=folium.GeoJsonTooltip(
+        fields=["nom", "loypredm2"],
+        aliases=["Département :", "Loyer moyen :"],
+        localize=True,
+        sticky=True,
+        labels=True
+    )
+).add_to(m)
+
+# === 7️⃣ Ajouter la couche de labels des villes par-dessus ===
+folium.TileLayer(
+    tiles='https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png',
+    attr='©OpenStreetMap, ©CartoDB',
+    name='Labels des villes',
+    control=False
+).add_to(m)
+
+# === 8️⃣ Sauvegarder la carte avec un nom unique ===
+stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+OUTPUT_PATH = f"outputs/carte_loyers_dep_{stamp}.html"
 m.save(OUTPUT_PATH)
 print(f"✅ Carte enregistrée : {OUTPUT_PATH}")
-print("Ouvrez le fichier HTML dans votre navigateur pour visualiser la carte.")
+print(f"Ouvrez ensuite : /{OUTPUT_PATH}")
+
