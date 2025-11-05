@@ -1,0 +1,63 @@
+# ...existing code...
+import os
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# === Paramètres ===
+DATA_PATH = "data/cleaned/pred-mai-mef-dhup_clean.csv"
+
+OUT_DIR = "outputs"
+os.makedirs(OUT_DIR, exist_ok=True)
+
+# === Chargement des données ===
+def load_data(path):
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"{path} introuvable. Copiez le CSV dans le dossier data/")
+    df = pd.read_csv(path, sep=';', encoding='utf-8', low_memory=False)
+    return df
+
+df = load_data(DATA_PATH)
+
+# === Nettoyage de la colonne des loyers ===
+# On retire les valeurs manquantes et aberrantes (loyers trop élevés ou négatifs)
+df = df[df["loypredm2"].notna()]
+df = df[df["loypredm2"] > 0]
+df = df[df["loypredm2"] < 60]  # 60 €/m² : coupe les extrêmes (valeurs aberrantes)
+
+
+# === Filtrer uniquement les arrondissements de Paris ===
+df_paris = df[df["LIBGEO"].str.contains("PARIS", case=False, na=False)].copy()
+
+# === Extraire le numéro d'arrondissement ===
+import re
+df_paris["Arrondissement"] = df_paris["LIBGEO"].apply(
+    lambda x: re.findall(r"\d+", x)[0] if re.findall(r"\d+", x) else None
+)
+df_paris = df_paris.dropna(subset=["Arrondissement"])
+df_paris["Arrondissement"] = df_paris["Arrondissement"].astype(int)
+
+# === Calcul du loyer moyen par arrondissement ===
+df_paris_moy = df_paris.groupby("Arrondissement")["loypredm2"].mean().reset_index()
+
+# === Tracé du graphique ===
+plt.figure(figsize=(10, 6))
+sns.barplot(
+    data=df_paris_moy.sort_values("Arrondissement"),
+    x="Arrondissement",
+    y="loypredm2",
+    palette="coolwarm"
+)
+
+plt.title("Loyer moyen au m² par arrondissement à Paris", fontsize=15, fontweight="bold")
+plt.xlabel("Arrondissement", fontsize=12)
+plt.ylabel("Loyer moyen au m² (€)", fontsize=12)
+plt.grid(True, axis="y", alpha=0.3)
+
+# === Sauvegarde et affichage ===
+output_path = os.path.join(OUT_DIR, "loyer_paris_arrondissements.png")
+plt.savefig(output_path, dpi=300, bbox_inches="tight")
+plt.show()
+
+print(f"✅ Graphique enregistré dans : {output_path}")
