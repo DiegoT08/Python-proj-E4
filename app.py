@@ -1,104 +1,56 @@
-import os
-from dash import Dash, html, dcc, Input, Output
+from dash import Dash, html, dcc
+from dash.dependencies import Input, Output
+from pages import home, carte, histogrammes, classement  # ← AJOUT ICI
 
 app = Dash(__name__, suppress_callback_exceptions=True)
+server = app.server
 
-# Chemin du dossier assets
-assets_path = "assets"
+# Liste des liens
+nav_links = [
+    {"label": "Accueil", "href": "/"},
+    {"label": "Carte", "href": "/carte"},
+    {"label": "Histogrammes", "href": "/histogrammes"},
+    {"label": "Classement", "href": "/classement"}  # ← AJOUT ICI
+]
 
-# Liste tous les fichiers PNG dans assets/
-images = [f for f in os.listdir(assets_path) if f.lower().endswith(".png")]
+app.layout = html.Div([
+    dcc.Location(id='url', refresh=False),
 
-# Layout du dashboard
-app.layout = html.Div(
-    style={
-        "fontFamily": "Helvetica, Arial, sans-serif",
-        "backgroundColor": "#f5f6fa",
-        "padding": "50px"
-    },
-    children=[
-        html.H1(
-            "Dashboard Professionnel des Histogrammes",
-            style={
-                "textAlign": "center",
-                "color": "#2c3e50",
-                "marginBottom": "50px",
-                "fontWeight": "bold"
-            }
-        ),
+    # Navigation horizontale
+    html.Div(id='topnav', className="topnav"),
 
-        # Checklist pour sélectionner les images
-        html.Div(
-            dcc.Checklist(
-                id="checklist-images",
-                options=[{"label": img.split(".")[0], "value": img} for img in images],
-                value=[images[0]] if images else [],
-                labelStyle={"display": "inline-block", "marginRight": "20px", "fontSize": "16px"}
-            ),
-            style={"textAlign": "center", "marginBottom": "50px"}
-        ),
+    # Contenu principal
+    html.Div(id='page-content', className="main-content")
+])
 
-        html.Div(
-            id="images-container",
-            style={
-                "display": "grid",
-                "gridTemplateColumns": "repeat(auto-fit, minmax(250px, 1fr))",
-                "gap": "40px",
-                "justifyItems": "center",
-                "alignItems": "start",
-                "maxHeight": "80vh",
-                "overflowY": "auto",
-                "padding": "10px"
-            }
-        )
-    ]
-)
-
-# Callback pour afficher les images cochées
+# Callback pour générer la navigation avec lien actif
 @app.callback(
-    Output("images-container", "children"),
-    Input("checklist-images", "value")
+    Output('topnav', 'children'),
+    Input('url', 'pathname')
 )
-def update_images(selected_images):
-    if not selected_images:
-        return html.Div(
-            "Aucune image sélectionnée",
-            style={"color": "#7f8c8d", "fontStyle": "italic", "textAlign": "center", "fontSize": "18px"}
-        )
+def update_nav(pathname):
+    links = [html.H2("Dashboard Loyers", style={"margin":"0", "display":"inline-block", "marginRight":"50px"})]
+    for link in nav_links:
+        class_name = "topnav-link"
+        if pathname == link["href"]:
+            class_name += " active"  # ajoute la classe active
+        links.append(dcc.Link(link["label"], href=link["href"], className=class_name))
+    return links
 
-    cards = []
-    for img in selected_images:
-        cards.append(
-            html.Div(
-                children=[
-                    html.Img(
-                        src=f"/assets/{img}",
-                        title=img.split(".")[0],
-                        style={
-                            "width": "100%",
-                            "borderRadius": "12px",
-                            "boxShadow": "0 8px 16px rgba(0,0,0,0.2)",
-                            "transition": "transform 0.3s, box-shadow 0.3s"
-                        }
-                    ),
-                    html.H4(
-                        img.split(".")[0],
-                        style={"textAlign": "center", "marginTop": "10px", "color": "#34495e"}
-                    )
-                ],
-                style={
-                    "backgroundColor": "#fff",
-                    "padding": "15px",
-                    "borderRadius": "12px",
-                    "width": "90%",
-                    "textAlign": "center",
-                    "cursor": "pointer",
-                    "overflow": "hidden"
-                },
-                className="card"
-            )
-        )
-    return cards
+# Callback pour afficher la page
+@app.callback(
+    Output('page-content', 'children'),
+    Input('url', 'pathname')
+)
+def display_page(pathname):
+    if pathname == '/carte':
+        return carte.layout
+    elif pathname == '/histogrammes':
+        return histogrammes.layout
+    elif pathname == '/classement':  # ← AJOUT ICI
+        return classement.layout
+    else:
+        return home.layout
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

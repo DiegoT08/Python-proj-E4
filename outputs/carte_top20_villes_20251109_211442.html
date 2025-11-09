@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_f3c540c8e09a67faa888a1f6b7965fe3 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_f3c540c8e09a67faa888a1f6b7965fe3" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_f3c540c8e09a67faa888a1f6b7965fe3 = L.map(
+                "map_f3c540c8e09a67faa888a1f6b7965fe3",
+                {
+                    center: [46.6, 2.5],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_97ba915739a9e2c0510fd3ca1ddefc83 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_97ba915739a9e2c0510fd3ca1ddefc83.addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+            var marker_f963f82348658ce0c60c0d4c23103cae = L.marker(
+                [48.836712924275616, 2.239235620764384],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_d3d69dcf63bb41a815bd9e17e4db0a15 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b075981e2909a2f6bf4a7e757ede5246 = $(`<div id="html_b075981e2909a2f6bf4a7e757ede5246" style="width: 100.0%; height: 100.0%;">Boulogne-Billancourt<br>loypredm2: 30.97 €/m²</div>`)[0];
+                popup_d3d69dcf63bb41a815bd9e17e4db0a15.setContent(html_b075981e2909a2f6bf4a7e757ede5246);
+            
+        
+
+        marker_f963f82348658ce0c60c0d4c23103cae.bindPopup(popup_d3d69dcf63bb41a815bd9e17e4db0a15)
+        ;
+
+        
+    
+    
+            marker_f963f82348658ce0c60c0d4c23103cae.bindTooltip(
+                `<div>
+                     Boulogne-Billancourt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_2503fcbc5da516a53aef460c4b403a5e = L.marker(
+                [48.84298902794167, 2.2085742918772566],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_e2ab33c9a5b237cb7a0131ee61990fb7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9d57c85469cd9b9165728973f2d3f67d = $(`<div id="html_9d57c85469cd9b9165728973f2d3f67d" style="width: 100.0%; height: 100.0%;">Saint-Cloud<br>loypredm2: 28.56 €/m²</div>`)[0];
+                popup_e2ab33c9a5b237cb7a0131ee61990fb7.setContent(html_9d57c85469cd9b9165728973f2d3f67d);
+            
+        
+
+        marker_2503fcbc5da516a53aef460c4b403a5e.bindPopup(popup_e2ab33c9a5b237cb7a0131ee61990fb7)
+        ;
+
+        
+    
+    
+            marker_2503fcbc5da516a53aef460c4b403a5e.bindTooltip(
+                `<div>
+                     Saint-Cloud
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_4ba8fee0845342bc1e50e4342f8ad79d = L.marker(
+                [48.903534126287845, 2.305753211615533],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_b4440bab5342c63eac9b40af2105b039 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9c8c2a202f77e612b4e35349d24a94cb = $(`<div id="html_9c8c2a202f77e612b4e35349d24a94cb" style="width: 100.0%; height: 100.0%;">Clichy<br>loypredm2: 28.44 €/m²</div>`)[0];
+                popup_b4440bab5342c63eac9b40af2105b039.setContent(html_9c8c2a202f77e612b4e35349d24a94cb);
+            
+        
+
+        marker_4ba8fee0845342bc1e50e4342f8ad79d.bindPopup(popup_b4440bab5342c63eac9b40af2105b039)
+        ;
+
+        
+    
+    
+            marker_4ba8fee0845342bc1e50e4342f8ad79d.bindTooltip(
+                `<div>
+                     Clichy
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_f7d7e2312b1f8676e2d86ac7817010b1 = L.marker(
+                [48.88543476663581, 2.266486469295875],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_0228a4b3f203bda0e363ab877e10c468 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cb90018ec7c4412db892801de4e7e057 = $(`<div id="html_cb90018ec7c4412db892801de4e7e057" style="width: 100.0%; height: 100.0%;">Neuilly-sur-Seine<br>loypredm2: 28.44 €/m²</div>`)[0];
+                popup_0228a4b3f203bda0e363ab877e10c468.setContent(html_cb90018ec7c4412db892801de4e7e057);
+            
+        
+
+        marker_f7d7e2312b1f8676e2d86ac7817010b1.bindPopup(popup_0228a4b3f203bda0e363ab877e10c468)
+        ;
+
+        
+    
+    
+            marker_f7d7e2312b1f8676e2d86ac7817010b1.bindTooltip(
+                `<div>
+                     Neuilly-sur-Seine
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_736c8fd800ec3d5af4c2affef81d4e7c = L.marker(
+                [48.89507245054689, 2.286881884084547],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_89c2e56dd990170df2a1aa02159c2be0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4be059d96b0ae35f6b5d18cc55408d33 = $(`<div id="html_4be059d96b0ae35f6b5d18cc55408d33" style="width: 100.0%; height: 100.0%;">Levallois-Perret<br>loypredm2: 28.44 €/m²</div>`)[0];
+                popup_89c2e56dd990170df2a1aa02159c2be0.setContent(html_4be059d96b0ae35f6b5d18cc55408d33);
+            
+        
+
+        marker_736c8fd800ec3d5af4c2affef81d4e7c.bindPopup(popup_89c2e56dd990170df2a1aa02159c2be0)
+        ;
+
+        
+    
+    
+            marker_736c8fd800ec3d5af4c2affef81d4e7c.bindTooltip(
+                `<div>
+                     Levallois-Perret
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_d5a0f8cbbfa89ca8ec12cd1ccdd16030 = L.marker(
+                [48.88731563926997, 2.3070694850120663],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_7b5427e92a4bb4df8e4c8d6c5e59f8f1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1d399d021d6f487b47294a884e783a32 = $(`<div id="html_1d399d021d6f487b47294a884e783a32" style="width: 100.0%; height: 100.0%;">Paris 17e Arrondissement<br>loypredm2: 28.44 €/m²</div>`)[0];
+                popup_7b5427e92a4bb4df8e4c8d6c5e59f8f1.setContent(html_1d399d021d6f487b47294a884e783a32);
+            
+        
+
+        marker_d5a0f8cbbfa89ca8ec12cd1ccdd16030.bindPopup(popup_7b5427e92a4bb4df8e4c8d6c5e59f8f1)
+        ;
+
+        
+    
+    
+            marker_d5a0f8cbbfa89ca8ec12cd1ccdd16030.bindTooltip(
+                `<div>
+                     Paris 17e Arrondissement
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_ee92b1f88fbd175a4ecfb2139f1db671 = L.marker(
+                [48.8983678326061, 2.2554830134183876],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_9fc17386e886b962e95cfb21cfdb2ccd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7769be4dd5df4bd5dc80f6ca6c541ee0 = $(`<div id="html_7769be4dd5df4bd5dc80f6ca6c541ee0" style="width: 100.0%; height: 100.0%;">Courbevoie<br>loypredm2: 28.44 €/m²</div>`)[0];
+                popup_9fc17386e886b962e95cfb21cfdb2ccd.setContent(html_7769be4dd5df4bd5dc80f6ca6c541ee0);
+            
+        
+
+        marker_ee92b1f88fbd175a4ecfb2139f1db671.bindPopup(popup_9fc17386e886b962e95cfb21cfdb2ccd)
+        ;
+
+        
+    
+    
+            marker_ee92b1f88fbd175a4ecfb2139f1db671.bindTooltip(
+                `<div>
+                     Courbevoie
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_efd9e804ccd955d9f7e7e34cbdbf4419 = L.marker(
+                [48.90706522527355, 2.2447102992534225],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_60fd39e6e10a5b1bd89a86680669f533 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d80f1d9f1a11c8704177424b46dbb732 = $(`<div id="html_d80f1d9f1a11c8704177424b46dbb732" style="width: 100.0%; height: 100.0%;">La Garenne-Colombes<br>loypredm2: 28.44 €/m²</div>`)[0];
+                popup_60fd39e6e10a5b1bd89a86680669f533.setContent(html_d80f1d9f1a11c8704177424b46dbb732);
+            
+        
+
+        marker_efd9e804ccd955d9f7e7e34cbdbf4419.bindPopup(popup_60fd39e6e10a5b1bd89a86680669f533)
+        ;
+
+        
+    
+    
+            marker_efd9e804ccd955d9f7e7e34cbdbf4419.bindTooltip(
+                `<div>
+                     La Garenne-Colombes
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_8162a9a58a7898427cb2de23075fdb4a = L.marker(
+                [48.84165704367866, 2.1614996809386615],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_dd7cdab52af5826b73c9759cfa90a10b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9ac4015c06ff3ab4f75d3d554b5e500d = $(`<div id="html_9ac4015c06ff3ab4f75d3d554b5e500d" style="width: 100.0%; height: 100.0%;">Vaucresson<br>loypredm2: 27.91 €/m²</div>`)[0];
+                popup_dd7cdab52af5826b73c9759cfa90a10b.setContent(html_9ac4015c06ff3ab4f75d3d554b5e500d);
+            
+        
+
+        marker_8162a9a58a7898427cb2de23075fdb4a.bindPopup(popup_dd7cdab52af5826b73c9759cfa90a10b)
+        ;
+
+        
+    
+    
+            marker_8162a9a58a7898427cb2de23075fdb4a.bindTooltip(
+                `<div>
+                     Vaucresson
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_28d8964892209f390b78e03bfb2f9dfe = L.marker(
+                [48.86058595558416, 2.2620620842718018],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_8f6abd5637ca2b62395b5df9ecbd27ce = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e8c5c12c82caf0ce8e50b88c62302319 = $(`<div id="html_e8c5c12c82caf0ce8e50b88c62302319" style="width: 100.0%; height: 100.0%;">Paris 16e Arrondissement<br>loypredm2: 27.91 €/m²</div>`)[0];
+                popup_8f6abd5637ca2b62395b5df9ecbd27ce.setContent(html_e8c5c12c82caf0ce8e50b88c62302319);
+            
+        
+
+        marker_28d8964892209f390b78e03bfb2f9dfe.bindPopup(popup_8f6abd5637ca2b62395b5df9ecbd27ce)
+        ;
+
+        
+    
+    
+            marker_28d8964892209f390b78e03bfb2f9dfe.bindTooltip(
+                `<div>
+                     Paris 16e Arrondissement
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_697d280beebf44c6cfac10bb4b77ea46 = L.marker(
+                [46.28088138490345, 0.5450042394300373],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_f7a8c982a221c514b61e7eb4b4d9a865 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_08441e8f13a917cd4af7413e7bd6acd0 = $(`<div id="html_08441e8f13a917cd4af7413e7bd6acd0" style="width: 100.0%; height: 100.0%;">Usson-du-Poitou<br>loypredm2: 4.90 €/m²</div>`)[0];
+                popup_f7a8c982a221c514b61e7eb4b4d9a865.setContent(html_08441e8f13a917cd4af7413e7bd6acd0);
+            
+        
+
+        marker_697d280beebf44c6cfac10bb4b77ea46.bindPopup(popup_f7a8c982a221c514b61e7eb4b4d9a865)
+        ;
+
+        
+    
+    
+            marker_697d280beebf44c6cfac10bb4b77ea46.bindTooltip(
+                `<div>
+                     Usson-du-Poitou
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_ac6ac254be73310a6dfeafed5771d993 = L.marker(
+                [46.06975197618481, 0.649113298177199],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_4aa61c9c9c539ffe69d6e7624e473099 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4ce847190d834277ad22e071755dc199 = $(`<div id="html_4ce847190d834277ad22e071755dc199" style="width: 100.0%; height: 100.0%;">Lessac<br>loypredm2: 4.90 €/m²</div>`)[0];
+                popup_4aa61c9c9c539ffe69d6e7624e473099.setContent(html_4ce847190d834277ad22e071755dc199);
+            
+        
+
+        marker_ac6ac254be73310a6dfeafed5771d993.bindPopup(popup_4aa61c9c9c539ffe69d6e7624e473099)
+        ;
+
+        
+    
+    
+            marker_ac6ac254be73310a6dfeafed5771d993.bindTooltip(
+                `<div>
+                     Lessac
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_dabc7a71252b8c8d69aed15fdebdedd2 = L.marker(
+                [46.34100538959135, 0.731135572121131],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_927b0fb0d8a576edea6337e2e7d30a34 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5bd2fb9a73a06647c9f24aca00936775 = $(`<div id="html_5bd2fb9a73a06647c9f24aca00936775" style="width: 100.0%; height: 100.0%;">Persac<br>loypredm2: 4.90 €/m²</div>`)[0];
+                popup_927b0fb0d8a576edea6337e2e7d30a34.setContent(html_5bd2fb9a73a06647c9f24aca00936775);
+            
+        
+
+        marker_dabc7a71252b8c8d69aed15fdebdedd2.bindPopup(popup_927b0fb0d8a576edea6337e2e7d30a34)
+        ;
+
+        
+    
+    
+            marker_dabc7a71252b8c8d69aed15fdebdedd2.bindTooltip(
+                `<div>
+                     Persac
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_398acc8b1ea5ddaf454fa3c5674c30b6 = L.marker(
+                [46.11829549650985, 0.56623030508691],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_487d55691bb2a0d3bf2543345d8960ba = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_798b0f5056accc38bfe623a810a95d2e = $(`<div id="html_798b0f5056accc38bfe623a810a95d2e" style="width: 100.0%; height: 100.0%;">Pressac<br>loypredm2: 4.90 €/m²</div>`)[0];
+                popup_487d55691bb2a0d3bf2543345d8960ba.setContent(html_798b0f5056accc38bfe623a810a95d2e);
+            
+        
+
+        marker_398acc8b1ea5ddaf454fa3c5674c30b6.bindPopup(popup_487d55691bb2a0d3bf2543345d8960ba)
+        ;
+
+        
+    
+    
+            marker_398acc8b1ea5ddaf454fa3c5674c30b6.bindTooltip(
+                `<div>
+                     Pressac
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_401d5f76d33efa9bd9ed22937220d2bb = L.marker(
+                [46.276226799834745, 0.691152243005539],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_6b04349189b4a030a272910a31ce1e8b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_428683ebb6cbeb93e3b68d5467fcca7e = $(`<div id="html_428683ebb6cbeb93e3b68d5467fcca7e" style="width: 100.0%; height: 100.0%;">Moussac<br>loypredm2: 4.90 €/m²</div>`)[0];
+                popup_6b04349189b4a030a272910a31ce1e8b.setContent(html_428683ebb6cbeb93e3b68d5467fcca7e);
+            
+        
+
+        marker_401d5f76d33efa9bd9ed22937220d2bb.bindPopup(popup_6b04349189b4a030a272910a31ce1e8b)
+        ;
+
+        
+    
+    
+            marker_401d5f76d33efa9bd9ed22937220d2bb.bindTooltip(
+                `<div>
+                     Moussac
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_8b4227d61a1f56aa091d1d26708df2f6 = L.marker(
+                [46.1336943771808, 0.6472690580977026],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_ea61e72dd931de6daf7b55a8e3e668a9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a2133d3659b33ab37480b60c0ff02181 = $(`<div id="html_a2133d3659b33ab37480b60c0ff02181" style="width: 100.0%; height: 100.0%;">Availles-Limouzine<br>loypredm2: 4.90 €/m²</div>`)[0];
+                popup_ea61e72dd931de6daf7b55a8e3e668a9.setContent(html_a2133d3659b33ab37480b60c0ff02181);
+            
+        
+
+        marker_8b4227d61a1f56aa091d1d26708df2f6.bindPopup(popup_ea61e72dd931de6daf7b55a8e3e668a9)
+        ;
+
+        
+    
+    
+            marker_8b4227d61a1f56aa091d1d26708df2f6.bindTooltip(
+                `<div>
+                     Availles-Limouzine
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_9820d444a2d7ddded79f2438ddc3db31 = L.marker(
+                [46.020222850313765, 0.525741037162648],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_0997fa0766c8e9ae5e68fb2dcb40222a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_215901ce75a9a18bf62f9befb078fb28 = $(`<div id="html_215901ce75a9a18bf62f9befb078fb28" style="width: 100.0%; height: 100.0%;">Alloue<br>loypredm2: 4.90 €/m²</div>`)[0];
+                popup_0997fa0766c8e9ae5e68fb2dcb40222a.setContent(html_215901ce75a9a18bf62f9befb078fb28);
+            
+        
+
+        marker_9820d444a2d7ddded79f2438ddc3db31.bindPopup(popup_0997fa0766c8e9ae5e68fb2dcb40222a)
+        ;
+
+        
+    
+    
+            marker_9820d444a2d7ddded79f2438ddc3db31.bindTooltip(
+                `<div>
+                     Alloue
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_d058a73f566de1667deac8d1d0e84861 = L.marker(
+                [46.32508019071998, 0.4901682330840736],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_f4d3605b55b0ef98c15c468ea0f51d8e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9d47d7f7dc53141a83e4323ddd2bf966 = $(`<div id="html_9d47d7f7dc53141a83e4323ddd2bf966" style="width: 100.0%; height: 100.0%;">Saint-Secondin<br>loypredm2: 4.90 €/m²</div>`)[0];
+                popup_f4d3605b55b0ef98c15c468ea0f51d8e.setContent(html_9d47d7f7dc53141a83e4323ddd2bf966);
+            
+        
+
+        marker_d058a73f566de1667deac8d1d0e84861.bindPopup(popup_f4d3605b55b0ef98c15c468ea0f51d8e)
+        ;
+
+        
+    
+    
+            marker_d058a73f566de1667deac8d1d0e84861.bindTooltip(
+                `<div>
+                     Saint-Secondin
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_ded70aeab9251f1aac229da28f8d26e5 = L.marker(
+                [46.18916827307547, 0.4100140220404569],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_8134086df0ec52d092ef88b3e88a8ec6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7084ee54dfcf422fed9216e622f7437f = $(`<div id="html_7084ee54dfcf422fed9216e622f7437f" style="width: 100.0%; height: 100.0%;">La Chapelle-Bâton<br>loypredm2: 4.90 €/m²</div>`)[0];
+                popup_8134086df0ec52d092ef88b3e88a8ec6.setContent(html_7084ee54dfcf422fed9216e622f7437f);
+            
+        
+
+        marker_ded70aeab9251f1aac229da28f8d26e5.bindPopup(popup_8134086df0ec52d092ef88b3e88a8ec6)
+        ;
+
+        
+    
+    
+            marker_ded70aeab9251f1aac229da28f8d26e5.bindTooltip(
+                `<div>
+                     La Chapelle-Bâton
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_42609099e314678b8519206ba2c6a029 = L.marker(
+                [46.238476856517174, 0.6996321611174483],
+                {
+}
+            ).addTo(map_f3c540c8e09a67faa888a1f6b7965fe3);
+        
+    
+        var popup_410675eef2fee899e62b23c9b9cbf801 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ebed91811d9a2284a8095793c3874739 = $(`<div id="html_ebed91811d9a2284a8095793c3874739" style="width: 100.0%; height: 100.0%;">L'Isle-Jourdain<br>loypredm2: 4.90 €/m²</div>`)[0];
+                popup_410675eef2fee899e62b23c9b9cbf801.setContent(html_ebed91811d9a2284a8095793c3874739);
+            
+        
+
+        marker_42609099e314678b8519206ba2c6a029.bindPopup(popup_410675eef2fee899e62b23c9b9cbf801)
+        ;
+
+        
+    
+    
+            marker_42609099e314678b8519206ba2c6a029.bindTooltip(
+                `<div>
+                     L'Isle-Jourdain
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>

@@ -1,0 +1,146 @@
+/* ------------------------------
+   THEME CLAIR NOIR ET BLANC
+------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Libre Baskerville', serif;
+    background-color: #ffffff; /* fond blanc */
+    color: #000000; /* texte noir */
+}
+
+/* ------------------------------
+   NAVIGATION HORIZONTALE
+------------------------------ */
+.topnav {
+    background-color: #ffffff; /* barre blanche */
+    padding: 20px 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.topnav h2 {
+    color: #000000; /* titre dans la nav en noir */
+    margin-right: 50px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.topnav-link {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: background-color 0.25s, color 0.25s;
+}
+
+.topnav-link:hover {
+    background-color: #000000; /* hover noir */
+    color: #ffffff; /* texte blanc au hover */
+}
+
+.topnav-link.active {
+    border-bottom: 3px solid #000000; /* indique page active */
+    color: #000000 !important;
+    font-weight: 700;
+}
+
+/* ------------------------------
+   CONTENU PRINCIPAL
+------------------------------ */
+.main-content {
+    padding: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ------------------------------
+   TITRES
+------------------------------ */
+h1, h2 {
+    font-family: 'Libre Baskerville', serif;
+    color: #000000; /* texte noir partout */
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 50px;
+    text-align: center;
+}
+
+/* ------------------------------
+   CARTE FOLIUM
+------------------------------ */
+iframe {
+    width: 100%;
+    height: 600px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* ------------------------------
+   IMAGE GRID / HISTOGRAMMES
+------------------------------ */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    justify-items: center;
+    align-items: start;
+    margin-top: 40px;
+}
+
+.card {
+    background-color: #ffffff; /* cartes blanches */
+    padding: 15px; /* réduit padding intérieur */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* légère ombre */
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto; /* hauteur automatique selon contenu */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.card img {
+    width: 100%;
+    max-height: 200px; /* réduit hauteur de l’image */
+    object-fit: contain;
+    border-radius: 6px;
+    margin-bottom: 10px; /* moins d’espace sous l’image */
+}
+
+.card h4 {
+    margin-top: 5px; /* rapproche le titre de l’image */
+    font-size: 16px;
+    color: #000000;
+    font-weight: 700;
+}
+
+/* Scroll smooth */
+html {
+    scroll-behavior: smooth;
+}
