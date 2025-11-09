@@ -1,31 +1,55 @@
+# histogrammes.py
 from dash import html
 import os
 
-# Chemin vers les images
+# Chemin vers le dossier des images
 assets_path = "assets"
-images = [f for f in os.listdir(assets_path) if f.lower().endswith(".png")]
+# On définit un ordre précis pour les images
+images_order = [
+    "hist_loypredm2.png",
+    "boxplot_typpred.png",
+    "corr_matrix.png"
+]
 
-# Fonction pour tronquer les noms trop longs
-def truncate_name(name, max_len=20):
-    if len(name) > max_len:
-        return name[:max_len-3] + "..."  # ajoute "..."
-    return name
+# Légendes explicatives pour chaque image
+legendes = {
+    "hist_loypredm2.png": "Histogramme : Distribution des loyers prédits par commune. Montre comment les loyers sont répartis sur toutes les communes.",
+    "boxplot_typpred.png": "Boxplot : Variation des loyers selon le type de maille. Permet de comparer les loyers entre différents types de prédictions.",
+    "corr_matrix.png": "Matrice de corrélation : Relations entre les variables numériques. Permet de détecter des corrélations entre différentes mesures."
+}
 
 # Layout de la page
 layout = html.Div([
-    html.H1("Histogrammes et visuels"),
+    html.H1("Visualisation des histogrammes et graphiques"),
 
     html.Div(
         children=[
             html.Div(
-                className="card",
+                style={
+                    "margin": "20px",
+                    "textAlign": "center",
+                    "width": "80%"
+                },
                 children=[
-                    html.Img(src=f"/assets/{img}"),
-                    html.H4(truncate_name(img.split(".")[0]))
+                    html.Img(
+                        src=f"/assets/{img}",
+                        style={"width": "100%", "height": "auto", "border": "1px solid #ccc", "border-radius": "5px"}
+                    ),
+                    html.P(
+                        legendes.get(img, "Aucune description disponible."),
+                        style={"marginTop": "10px", "fontStyle": "italic", "fontSize": "14px"}
+                    )
                 ]
             )
-            for img in images
+            for img in images_order if os.path.exists(os.path.join(assets_path, img))
         ],
-        className="image-grid"
+        style={
+            "height": "80vh",          # hauteur du conteneur
+            "overflowY": "auto",       # défilement vertical
+            "padding": "10px",
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "center"
+        }
     )
 ])

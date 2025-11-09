@@ -28,6 +28,7 @@ layout = html.Div([
     html.Ul([
         html.Li("Une carte interactive des loyers par département, pour identifier les zones avec des loyers élevés ou faibles."),
         html.Li("Une galerie d'histogrammes et de graphiques pour visualiser les distributions des loyers."),
+        html.Li("Un classement des dix villes les plus chères et des dix villes les moins chères accompagnés d'une carte interactive présentant ces différentes villes."),
     ]),
 
     html.P("""
