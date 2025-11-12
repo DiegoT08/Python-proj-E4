@@ -6,16 +6,14 @@ import os
 assets_path = "assets"
 # On définit un ordre précis pour les images
 images_order = [
-    "hist_loypredm2.png",
-    "boxplot_typpred.png",
-    "corr_matrix.png"
+    "histogramme_loyer_moyen.png",
+    "loyer_paris_arrondissements.png",
 ]
 
 # Légendes explicatives pour chaque image
 legendes = {
-    "hist_loypredm2.png": "Histogramme : Distribution des loyers prédits par commune. Montre comment les loyers sont répartis sur toutes les communes.",
-    "boxplot_typpred.png": "Boxplot : Variation des loyers selon le type de maille. Permet de comparer les loyers entre différents types de prédictions.",
-    "corr_matrix.png": "Matrice de corrélation : Relations entre les variables numériques. Permet de détecter des corrélations entre différentes mesures."
+    "histogramme_loyer_moyen.png": "Histogramme : Distribution des loyers prédits par commune. Montre comment les loyers sont répartis sur toutes les communes.",
+    "loyer_paris_arrondissements.png": "Boxplot : Variation des loyers selon le type de maille. Permet de comparer les loyers entre différents types de prédictions.",
 }
 
 # Layout de la page

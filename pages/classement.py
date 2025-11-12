@@ -1,68 +1,77 @@
-from dash import html, dash_table
+# pages/classement.py
+
+
+from dash import html, dcc, dash_table
 import pandas as pd
+import os
 import folium
-from datetime import datetime
 
-# Charger les données
-DATA_PATH = "data/cleaned/pred-mai-mef-dhup_clean_coords.csv"
-df = pd.read_csv(DATA_PATH, sep=';')
+# -------------------------------
+# 🔹 Chargement des données
+# -------------------------------
+data_path = os.path.join("data", "cleaned", "pred-mai-mef-dhup_clean_coords.csv")
+df = pd.read_csv(data_path, sep=";")
 
-LOYER_COL = "loypredm2"
+# 🔹 Vérifie le bon nom de la colonne du loyer
+LOYER_COL = "loypredm2"  # à adapter si besoin
 
-# Top 10 et Bottom 10
-top10 = df.nlargest(10, LOYER_COL)[["LIBGEO", LOYER_COL, "latitude", "longitude"]]
-bottom10 = df.nsmallest(10, LOYER_COL)[["LIBGEO", LOYER_COL, "latitude", "longitude"]]
+# 🔹 Vérifie que lat/lon existent dans ton CSV
+LAT_COL, LON_COL = "latitude", "longitude"
 
-# Combiner pour carte
-top_bottom = pd.concat([top10, bottom10], ignore_index=True)
+# -------------------------------
+# 🔹 Création des classements
+# -------------------------------
+top10 = df.nlargest(10, LOYER_COL)[["LIBGEO", LOYER_COL, LAT_COL, LON_COL]]
+bottom10 = df.nsmallest(10, LOYER_COL)[["LIBGEO", LOYER_COL, LAT_COL, LON_COL]]
 
-# Créer la carte Folium
-m = folium.Map(location=[46.6, 2.5], zoom_start=6, tiles="OpenStreetMap")
-for _, row in top_bottom.iterrows():
-    folium.Marker(
-        location=[row['latitude'], row['longitude']],
-        popup=f"{row['LIBGEO']}<br>{LOYER_COL}: {row[LOYER_COL]:.2f} €/m²",
-        tooltip=row['LIBGEO']
-    ).add_to(m)
+# -------------------------------
+# 🔹 Création de la carte Folium
+# -------------------------------
+m = folium.Map(location=[46.6, 2.2], zoom_start=6)
 
-# Layout Dash
+# Ajoute les points du Top 10
+for _, row in top10.iterrows():
+    if pd.notna(row[LAT_COL]) and pd.notna(row[LON_COL]):
+        folium.Marker(
+            location=[row[LAT_COL], row[LON_COL]],
+            popup=f"{row['LIBGEO']} - {row[LOYER_COL]} €/m²",
+            icon=folium.Icon(color="red")
+        ).add_to(m)
+
+# Sauvegarde la carte dans /assets
+map_path = os.path.join("assets", "map_classement.html")
+m.save(map_path)
+
+# -------------------------------
+# 🔹 Layout Dash
+# -------------------------------
 layout = html.Div([
-    html.H1("Classement des villes par loyers", style={"textAlign": "center"}),
+    html.H1("Classement des loyers en France", style={"textAlign": "center"}),
 
-    # Conteneur des deux tableaux côte à côte
-    html.Div([
-        html.Div([
-            html.H2("Top 10 - Loyers les plus élevés", style={"textAlign": "center"}),
-            dash_table.DataTable(
-                id="table-top10",
-                data=top10.to_dict("records"),
-                columns=[{"name": "Ville", "id": "LIBGEO"}, {"name": "Loyer (€/m²)", "id": LOYER_COL}],
-                style_table={"width": "100%"},
-                style_cell={"textAlign": "center", "padding": "8px"},
-                style_header={"fontWeight": "bold", "backgroundColor": "#f2f2f2"}
-            )
-        ], style={"width": "48%", "display": "inline-block", "verticalAlign": "top"}),
-
-        html.Div([
-            html.H2("Top 10 - Loyers les plus faibles", style={"textAlign": "center"}),
-            dash_table.DataTable(
-                id="table-bottom10",
-                data=bottom10.to_dict("records"),
-                columns=[{"name": "Ville", "id": "LIBGEO"}, {"name": "Loyer (€/m²)", "id": LOYER_COL}],
-                style_table={"width": "100%"},
-                style_cell={"textAlign": "center", "padding": "8px"},
-                style_header={"fontWeight": "bold", "backgroundColor": "#f2f2f2"}
-            )
-        ], style={"width": "48%", "display": "inline-block", "verticalAlign": "top", "marginLeft": "4%"})
-    ], style={"width": "90%", "margin": "0 auto"}),
+    html.H2("Top 10 - Loyers les plus élevés", style={"textAlign": "center"}),
+    dash_table.DataTable(
+        data=top10[["LIBGEO", LOYER_COL]].to_dict("records"),
+        columns=[{"name": col, "id": col} for col in ["LIBGEO", LOYER_COL]],
+        style_table={"width": "60%", "margin": "auto"},
+        style_cell={"textAlign": "center", "padding": "8px"},
+        style_header={"fontWeight": "bold", "backgroundColor": "#f2f2f2"}
+    ),
 
     html.Br(),
 
-    # Carte Folium
+    html.H2("Top 10 - Loyers les plus faibles", style={"textAlign": "center"}),
+    dash_table.DataTable(
+        data=bottom10[["LIBGEO", LOYER_COL]].to_dict("records"),
+        columns=[{"name": col, "id": col} for col in ["LIBGEO", LOYER_COL]],
+        style_table={"width": "60%", "margin": "auto"},
+        style_cell={"textAlign": "center", "padding": "8px"},
+        style_header={"fontWeight": "bold", "backgroundColor": "#f2f2f2"}
+    ),
+
+    html.Br(),
+    html.H2("Carte des villes du Top 10", style={"textAlign": "center"}),
     html.Iframe(
-        srcDoc=m.get_root().render(),
-        width="80%",
-        height="500",
-        style={"margin": "0 auto", "display": "block"}
+        src="/assets/map_classement.html",
+        style={"width": "100%", "height": "600px", "border": "none"}
     )
 ])

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0ab852fa6df6a54de2039b9997792517 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_0ab852fa6df6a54de2039b9997792517" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0ab852fa6df6a54de2039b9997792517 = L.map(
+                "map_0ab852fa6df6a54de2039b9997792517",
+                {
+                    center: [46.6, 2.2],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_9a9cb08c416f2d9b5dd0ea38032c4eb9 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_9a9cb08c416f2d9b5dd0ea38032c4eb9.addTo(map_0ab852fa6df6a54de2039b9997792517);
+        
+    
+            var marker_162b37a2789659a949de0dd448e4c0e8 = L.marker(
+                [48.836712924275616, 2.239235620764384],
+                {
+}
+            ).addTo(map_0ab852fa6df6a54de2039b9997792517);
+        
+    
+            var icon_10333c19c77686673bbf872a77d9b2fd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_550e0a36a5669aaf955a3cc34d004d4b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b31ec04a86654849caa5714f74a3ed2e = $(`<div id="html_b31ec04a86654849caa5714f74a3ed2e" style="width: 100.0%; height: 100.0%;">Boulogne-Billancourt - 30.9677372241925 €/m²</div>`)[0];
+                popup_550e0a36a5669aaf955a3cc34d004d4b.setContent(html_b31ec04a86654849caa5714f74a3ed2e);
+            
+        
+
+        marker_162b37a2789659a949de0dd448e4c0e8.bindPopup(popup_550e0a36a5669aaf955a3cc34d004d4b)
+        ;
+
+        
+    
+    
+                marker_162b37a2789659a949de0dd448e4c0e8.setIcon(icon_10333c19c77686673bbf872a77d9b2fd);
+            
+    
+            var marker_3f9bb14657523ee412e668ec8c1a041f = L.marker(
+                [48.84298902794167, 2.2085742918772566],
+                {
+}
+            ).addTo(map_0ab852fa6df6a54de2039b9997792517);
+        
+    
+            var icon_cf72f11bc0d88ddcf300fb8565ef33ee = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f1971839161d4f3ad707345a494c667b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4180eeb5503d2b1fd231f098ed13e18f = $(`<div id="html_4180eeb5503d2b1fd231f098ed13e18f" style="width: 100.0%; height: 100.0%;">Saint-Cloud - 28.5551409072149 €/m²</div>`)[0];
+                popup_f1971839161d4f3ad707345a494c667b.setContent(html_4180eeb5503d2b1fd231f098ed13e18f);
+            
+        
+
+        marker_3f9bb14657523ee412e668ec8c1a041f.bindPopup(popup_f1971839161d4f3ad707345a494c667b)
+        ;
+
+        
+    
+    
+                marker_3f9bb14657523ee412e668ec8c1a041f.setIcon(icon_cf72f11bc0d88ddcf300fb8565ef33ee);
+            
+    
+            var marker_6a6dcebe17603d045aec03219a44763e = L.marker(
+                [48.903534126287845, 2.305753211615533],
+                {
+}
+            ).addTo(map_0ab852fa6df6a54de2039b9997792517);
+        
+    
+            var icon_dd0faa463b8b91686f5c8786df934801 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ca0909bcdb338d95ad87af87cfc8017a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d0d37878fc639a7b8c90b36ff95f4bd2 = $(`<div id="html_d0d37878fc639a7b8c90b36ff95f4bd2" style="width: 100.0%; height: 100.0%;">Clichy - 28.4377560309499 €/m²</div>`)[0];
+                popup_ca0909bcdb338d95ad87af87cfc8017a.setContent(html_d0d37878fc639a7b8c90b36ff95f4bd2);
+            
+        
+
+        marker_6a6dcebe17603d045aec03219a44763e.bindPopup(popup_ca0909bcdb338d95ad87af87cfc8017a)
+        ;
+
+        
+    
+    
+                marker_6a6dcebe17603d045aec03219a44763e.setIcon(icon_dd0faa463b8b91686f5c8786df934801);
+            
+    
+            var marker_f9d62c0fd434edaf378a2eaf6cf79366 = L.marker(
+                [48.88543476663581, 2.266486469295875],
+                {
+}
+            ).addTo(map_0ab852fa6df6a54de2039b9997792517);
+        
+    
+            var icon_b2e7c9275416956d53456e12e8e5a1da = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_673ac2496677073aeb9f577c53be939b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2b213196b1eb58fee7d654ee21e31370 = $(`<div id="html_2b213196b1eb58fee7d654ee21e31370" style="width: 100.0%; height: 100.0%;">Neuilly-sur-Seine - 28.4377560309499 €/m²</div>`)[0];
+                popup_673ac2496677073aeb9f577c53be939b.setContent(html_2b213196b1eb58fee7d654ee21e31370);
+            
+        
+
+        marker_f9d62c0fd434edaf378a2eaf6cf79366.bindPopup(popup_673ac2496677073aeb9f577c53be939b)
+        ;
+
+        
+    
+    
+                marker_f9d62c0fd434edaf378a2eaf6cf79366.setIcon(icon_b2e7c9275416956d53456e12e8e5a1da);
+            
+    
+            var marker_1e39c6b3d1ea7ff991cdcafa19a9f634 = L.marker(
+                [48.89507245054689, 2.286881884084547],
+                {
+}
+            ).addTo(map_0ab852fa6df6a54de2039b9997792517);
+        
+    
+            var icon_d71e999bf4dbec39daa3c60d7085b07e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2b4716aa4963e7b1f1ca639f4aba0407 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_eedc8b07f25df8e20dfc091612ba1b14 = $(`<div id="html_eedc8b07f25df8e20dfc091612ba1b14" style="width: 100.0%; height: 100.0%;">Levallois-Perret - 28.4377560309499 €/m²</div>`)[0];
+                popup_2b4716aa4963e7b1f1ca639f4aba0407.setContent(html_eedc8b07f25df8e20dfc091612ba1b14);
+            
+        
+
+        marker_1e39c6b3d1ea7ff991cdcafa19a9f634.bindPopup(popup_2b4716aa4963e7b1f1ca639f4aba0407)
+        ;
+
+        
+    
+    
+                marker_1e39c6b3d1ea7ff991cdcafa19a9f634.setIcon(icon_d71e999bf4dbec39daa3c60d7085b07e);
+            
+    
+            var marker_5158e4bfbb8c3b9521291ffc31bc8d1b = L.marker(
+                [48.88731563926997, 2.3070694850120663],
+                {
+}
+            ).addTo(map_0ab852fa6df6a54de2039b9997792517);
+        
+    
+            var icon_3c4be1efc2c51e8fd7db5b9c81a0e27c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0e8f5fb292d11b50fd3ab4f0aceb5526 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_70ca804508d7ccb8d094b653829d61bb = $(`<div id="html_70ca804508d7ccb8d094b653829d61bb" style="width: 100.0%; height: 100.0%;">Paris 17e Arrondissement - 28.4377560309499 €/m²</div>`)[0];
+                popup_0e8f5fb292d11b50fd3ab4f0aceb5526.setContent(html_70ca804508d7ccb8d094b653829d61bb);
+            
+        
+
+        marker_5158e4bfbb8c3b9521291ffc31bc8d1b.bindPopup(popup_0e8f5fb292d11b50fd3ab4f0aceb5526)
+        ;
+
+        
+    
+    
+                marker_5158e4bfbb8c3b9521291ffc31bc8d1b.setIcon(icon_3c4be1efc2c51e8fd7db5b9c81a0e27c);
+            
+    
+            var marker_6dda4acdfab2cf58a64d6a3403971a8e = L.marker(
+                [48.8983678326061, 2.2554830134183876],
+                {
+}
+            ).addTo(map_0ab852fa6df6a54de2039b9997792517);
+        
+    
+            var icon_dca3938745149da08e1481726c7516e7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d4bec7c8d7d0dc12f006551d035270c0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_97cc2d474704fe594a5cbf41266acfc7 = $(`<div id="html_97cc2d474704fe594a5cbf41266acfc7" style="width: 100.0%; height: 100.0%;">Courbevoie - 28.4377560309499 €/m²</div>`)[0];
+                popup_d4bec7c8d7d0dc12f006551d035270c0.setContent(html_97cc2d474704fe594a5cbf41266acfc7);
+            
+        
+
+        marker_6dda4acdfab2cf58a64d6a3403971a8e.bindPopup(popup_d4bec7c8d7d0dc12f006551d035270c0)
+        ;
+
+        
+    
+    
+                marker_6dda4acdfab2cf58a64d6a3403971a8e.setIcon(icon_dca3938745149da08e1481726c7516e7);
+            
+    
+            var marker_4eeb23fa6c37ab81e3220693196764b2 = L.marker(
+                [48.90706522527355, 2.2447102992534225],
+                {
+}
+            ).addTo(map_0ab852fa6df6a54de2039b9997792517);
+        
+    
+            var icon_b2904912fc3fde71b234a917b805bab4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b0100b947ed8c5cded01b6ba5f401eec = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_51acee6777fdd13f3c01a380494d8edd = $(`<div id="html_51acee6777fdd13f3c01a380494d8edd" style="width: 100.0%; height: 100.0%;">La Garenne-Colombes - 28.4377560309499 €/m²</div>`)[0];
+                popup_b0100b947ed8c5cded01b6ba5f401eec.setContent(html_51acee6777fdd13f3c01a380494d8edd);
+            
+        
+
+        marker_4eeb23fa6c37ab81e3220693196764b2.bindPopup(popup_b0100b947ed8c5cded01b6ba5f401eec)
+        ;
+
+        
+    
+    
+                marker_4eeb23fa6c37ab81e3220693196764b2.setIcon(icon_b2904912fc3fde71b234a917b805bab4);
+            
+    
+            var marker_28ff90bd51d0859fc9b506f85889cf45 = L.marker(
+                [48.84165704367866, 2.1614996809386615],
+                {
+}
+            ).addTo(map_0ab852fa6df6a54de2039b9997792517);
+        
+    
+            var icon_1545ad344ec28e3642cc8ea30dc89120 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_48a8c331619f477753d3b1c369494200 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e19a7b6f07417c532f466d58a03c72c3 = $(`<div id="html_e19a7b6f07417c532f466d58a03c72c3" style="width: 100.0%; height: 100.0%;">Vaucresson - 27.9074033343299 €/m²</div>`)[0];
+                popup_48a8c331619f477753d3b1c369494200.setContent(html_e19a7b6f07417c532f466d58a03c72c3);
+            
+        
+
+        marker_28ff90bd51d0859fc9b506f85889cf45.bindPopup(popup_48a8c331619f477753d3b1c369494200)
+        ;
+
+        
+    
+    
+                marker_28ff90bd51d0859fc9b506f85889cf45.setIcon(icon_1545ad344ec28e3642cc8ea30dc89120);
+            
+    
+            var marker_68d058a7c4fca6dc9003cb71719c9bee = L.marker(
+                [48.86058595558416, 2.2620620842718018],
+                {
+}
+            ).addTo(map_0ab852fa6df6a54de2039b9997792517);
+        
+    
+            var icon_2f20eddead5bb5e1085a2f1d9d862c88 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_06c5b2ccdd81433a18d53223e80debd3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ea7d643cf5e76bfb08e8d6980d15a9d5 = $(`<div id="html_ea7d643cf5e76bfb08e8d6980d15a9d5" style="width: 100.0%; height: 100.0%;">Paris 16e Arrondissement - 27.9074033343299 €/m²</div>`)[0];
+                popup_06c5b2ccdd81433a18d53223e80debd3.setContent(html_ea7d643cf5e76bfb08e8d6980d15a9d5);
+            
+        
+
+        marker_68d058a7c4fca6dc9003cb71719c9bee.bindPopup(popup_06c5b2ccdd81433a18d53223e80debd3)
+        ;
+
+        
+    
+    
+                marker_68d058a7c4fca6dc9003cb71719c9bee.setIcon(icon_2f20eddead5bb5e1085a2f1d9d862c88);
+            
+</script>
+</html>
