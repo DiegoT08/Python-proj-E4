@@ -1,13 +1,18 @@
 import pandas as pd
 from sqlalchemy import create_engine
 
-# Charger le CSV
-df = pd.read_csv("data/cleaned/pred-mai-mef-dhup_clean.csv", sep=";")
+# --- Paramètres ---
+CSV_PATH = "data/cleaned/pred-mai-mef-dhup_clean.csv"
+DB_URL = "postgresql+psycopg2://mateo:projetdata@localhost:5432/loyers_db"
 
-# Connexion à PostgreSQL
-engine = create_engine("postgresql+psycopg2://mateo:projet_data@localhost:5432/loyers_db")
+# --- Charger le CSV dans un DataFrame ---
+df = pd.read_csv(CSV_PATH, sep=';', encoding='utf-8')
 
-# Envoi du DataFrame dans la BDD
-df.to_sql("loyers", engine, if_exists="replace", index=False)
+# --- Créer l'engine SQLAlchemy ---
+engine = create_engine(DB_URL)
 
-print("✅ Données importées dans PostgreSQL avec succès.")
+# --- Insérer les données dans la table 'loyers' ---
+# if_exists='replace' supprime les anciennes lignes, 'append' ajoute
+df.to_sql('loyers', engine, if_exists='replace', index=False)
+
+print("✅ Données importées dans la table 'loyers'")
