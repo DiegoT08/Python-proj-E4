@@ -1,0 +1,71 @@
+# ...existing code...
+import os
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# === Paramètres ===
+DATA_PATH = "data/cleaned/pred-mai-mef-dhup_clean.csv"
+
+OUT_DIR = "assets"
+os.makedirs(OUT_DIR, exist_ok=True)
+
+# === Chargement des données ===
+def load_data(path):
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"{path} introuvable. Copiez le CSV dans le dossier data/")
+    df = pd.read_csv(path, sep=';', encoding='utf-8', low_memory=False)
+    return df
+
+df = load_data(DATA_PATH)
+
+# === Nettoyage de la colonne des loyers ===
+df = df[df["loypredm2"].notna()]
+df = df[df["loypredm2"] > 0]
+df = df[df["loypredm2"] < 60]  # coupe les valeurs aberrantes
+
+# === Liste locale des départements littoraux (aucune modification du dataset) ===
+DEPARTEMENTS_LITTORAUX = [
+    "06","13","14","17","22","29","30","33","34","35","40",
+    "44","50","56","59","62","64","66","76","83","85"
+]
+
+# === Séparation temporaire ===
+df_littoral = df[df["DEP"].astype(str).isin(DEPARTEMENTS_LITTORAUX)]
+df_non_littoral = df[~df["DEP"].astype(str).isin(DEPARTEMENTS_LITTORAUX)]
+
+# === Style graphique ===
+plt.style.use("dark_background")
+sns.set_context("talk")
+sns.set_palette("husl")
+
+plt.figure(figsize=(10,6))
+
+# Histogrammes superposés
+sns.histplot(df_littoral["loypredm2"], bins=35, color="#00C2FF", label="Départements littoraux", alpha=0.6, kde=True)
+sns.histplot(df_non_littoral["loypredm2"], bins=35, color="#FF7F50", label="Autres départements", alpha=0.6, kde=True)
+
+# === Moyennes visuelles ===
+mean_littoral = df_littoral["loypredm2"].mean()
+mean_non_littoral = df_non_littoral["loypredm2"].mean()
+
+plt.axvline(mean_littoral, color="#00C2FF", linestyle="--", linewidth=2)
+plt.axvline(mean_non_littoral, color="#FF7F50", linestyle="--", linewidth=2)
+plt.text(mean_littoral+0.2, plt.ylim()[1]*0.8, f"μ Littoral = {mean_littoral:.2f} €", color="#00C2FF", fontsize=10)
+plt.text(mean_non_littoral+0.2, plt.ylim()[1]*0.7, f"μ Autres = {mean_non_littoral:.2f} €", color="#FF7F50", fontsize=10)
+
+# === Titres et labels ===
+plt.title("Distribution des loyers moyens au m²\nLittoral vs Non-Littoral (France 2023)", fontsize=14, weight="bold")
+plt.xlabel("Loyer moyen au m² (€)")
+plt.ylabel("Nombre de communes")
+plt.legend(loc="upper right")
+
+plt.tight_layout()
+
+# === Enregistrement ===
+output_path = os.path.join(OUT_DIR, "hist_littoral_vs_nonlittoral.png")
+plt.savefig(output_path, dpi=300)
+plt.close()
+
+print(f"✅ Histogramme littoral/non-littoral enregistré dans : {output_path}")
