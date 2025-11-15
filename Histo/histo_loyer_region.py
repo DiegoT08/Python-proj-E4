@@ -5,21 +5,22 @@ import seaborn as sns
 from sqlalchemy import create_engine
 
 # === Paramètres ===
-DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
+DB_URL = "sqlite:///loyers.db"   # <-- SQLite au lieu de PostgreSQL
 OUT_DIR = "assets"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # === Connexion à la base de données ===
 def load_data_from_db():
-    """Récupère les données de la table 'loyers' depuis la base de données"""
+    """Récupère les données depuis loyers.db"""
     query = "SELECT * FROM loyers"
     engine = create_engine(DB_URL)
-    df = pd.read_sql(query, engine)
+    with engine.connect() as conn:
+        df = pd.read_sql(query, conn)
     return df
 
 df = load_data_from_db()
 
-# === Dictionnaire de correspondance code -> nom de région ===
+# === Dictionnaire code → nom de région ===
 regions = {
     11: "Île-de-France",
     24: "Centre-Val de Loire",
@@ -42,33 +43,38 @@ df = df[df["REG"].notna()]
 df["REG"] = df["REG"].astype(int)
 df["REGION_NOM"] = df["REG"].map(regions)
 
-# Supprime les lignes avec région non reconnue (au cas où)
-df = df[df["REGION_NOM"].notna()]
+df = df[df["REGION_NOM"].notna()]  # Sécurité
 
-# === Calcul du loyer moyen par région ===
-df_region = df.groupby("REGION_NOM")["loypredm2"].mean().reset_index().sort_values("loypredm2", ascending=False)
+# === Calcul du loyer moyen régional ===
+df_region = (
+    df.groupby("REGION_NOM")["loypredm2"]
+    .mean()
+    .reset_index()
+    .sort_values("loypredm2", ascending=False)
+)
 
-# === Tracé du graphique ===
+# === Graphique ===
 plt.figure(figsize=(12, 6))
 ax = sns.barplot(
     data=df_region,
     x="loypredm2",
     y="REGION_NOM",
-    hue="REGION_NOM",     # assigne y à hue pour éviter la dépréciation
-    dodge=False,          # empile/overlay pour n'avoir qu'une barre par région
+    hue="REGION_NOM",   # oblige seaborn à distinguer chaque barre
+    dodge=False,
     palette="Blues_r"
 )
 
-# Supprime la légende (effet identique à l'ancien passage de palette sans hue)
-if ax.get_legend() is not None:
-    ax.get_legend().remove()
+# Supprimer la légende inutile
+legend = ax.get_legend()
+if legend is not None:
+    legend.remove()
 
 plt.title("Loyer moyen au m² par région en France (2023)", fontsize=16, fontweight='bold')
 plt.xlabel("Loyer moyen au m² (€)", fontsize=13)
 plt.ylabel("Région", fontsize=13)
 plt.grid(axis='x', alpha=0.3)
 
-# === Sauvegarde et affichage ===
+# === Sauvegarde ===
 output_path = os.path.join(OUT_DIR, "loyer_moyen_par_region.png")
 plt.savefig(output_path, dpi=300, bbox_inches="tight")
 print(f"✅ Graphique enregistré dans {output_path}")

@@ -6,16 +6,17 @@ import seaborn as sns
 from sqlalchemy import create_engine
 
 # === Paramètres ===
-DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
+DB_URL = "sqlite:///loyers.db"  # <-- SQLite
 OUT_DIR = "assets"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # === Connexion à la base de données ===
 def load_data_from_db():
-    """Récupère les données de la table 'loyers' depuis la base de données"""
+    """Récupère les données depuis loyers.db"""
     query = "SELECT * FROM loyers"
     engine = create_engine(DB_URL)
-    df = pd.read_sql(query, engine)
+    with engine.connect() as conn:
+        df = pd.read_sql(query, conn)
     return df
 
 df = load_data_from_db()
@@ -36,11 +37,11 @@ dept_mean = df.groupby("DEP")["loypredm2"].transform("mean")
 # === Calcul du ratio communal / moyenne départementale ===
 df["ratio_dep"] = df["loypredm2"] / dept_mean
 
-# === Nettoyage du ratio (suppression des divisions nulles / inf) ===
+# === Nettoyage du ratio ===
 df = df.replace([np.inf, -np.inf], np.nan)
 df = df[df["ratio_dep"].notna()]
 
-# === Statistiques descriptives pour annotation ===
+# === Statistiques descriptives ===
 mean_ratio = df["ratio_dep"].mean()
 median_ratio = df["ratio_dep"].median()
 std_ratio = df["ratio_dep"].std()

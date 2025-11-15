@@ -6,16 +6,17 @@ import matplotlib as mpl
 from sqlalchemy import create_engine
 
 # === Paramètres ===
-DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
+DB_URL = "sqlite:///loyers.db"   # <-- SQLite au lieu de PostgreSQL
 OUT_DIR = "assets"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # === Connexion à la base de données ===
 def load_data_from_db():
-    """Récupère les données de la table 'loyers' depuis la base de données"""
+    """Récupère les données depuis loyers.db"""
     query = "SELECT * FROM loyers"
     engine = create_engine(DB_URL)
-    df = pd.read_sql(query, engine)
+    with engine.connect() as conn:
+        df = pd.read_sql(query, conn)
     return df
 
 df = load_data_from_db()
@@ -40,16 +41,16 @@ mean_littoral = df_littoral["loypredm2"].mean()
 mean_non_littoral = df_non_littoral["loypredm2"].mean()
 
 # === STYLE GRAPHIQUE CLAIR ===
-mpl.rcdefaults()               # Réinitialise toutes les configurations globales Matplotlib
-plt.style.use("default")       # Supprime tout style global (comme dark_background)
-sns.reset_orig()               # Réinitialise Seaborn à son état d'origine
+mpl.rcdefaults()               
+plt.style.use("default")      
+sns.reset_orig()              
 sns.set_theme(style="whitegrid")
 
-# Crée la figure avec fond blanc explicite
+# Fond blanc
 fig, ax = plt.subplots(figsize=(10, 6), facecolor="white")
 ax.set_facecolor("white")
 
-# === Histogrammes superposés ===
+# === Histogrammes ===
 sns.histplot(
     df_littoral["loypredm2"],
     bins=35,
@@ -69,7 +70,7 @@ sns.histplot(
     ax=ax
 )
 
-# === Lignes de moyenne ===
+# === Lignes de moyennes ===
 ax.axvline(mean_littoral, color="#3182bd", linestyle="--", linewidth=2)
 ax.axvline(mean_non_littoral, color="#e6550d", linestyle="--", linewidth=2)
 
@@ -79,7 +80,7 @@ ax.text(mean_littoral + 0.2, ax.get_ylim()[1]*0.8, f"μ Littoral = {mean_littora
 ax.text(mean_non_littoral + 0.2, ax.get_ylim()[1]*0.7, f"μ Autres = {mean_non_littoral:.2f} €",
         color="#e6550d", fontsize=10)
 
-# === Titres et axes ===
+# === Titres / axes ===
 ax.set_title("Distribution des loyers moyens au m²\nLittoral vs Non-Littoral (France 2023)",
              fontsize=14, fontweight="bold")
 ax.set_xlabel("Loyer moyen au m² (€)", fontsize=12)
@@ -89,5 +90,6 @@ plt.tight_layout()
 
 # === Sauvegarde ===
 output_path = os.path.join(OUT_DIR, "hist_littoral_vs_nonlittoral.png")
-plt.savefig(output_path, dpi=300, bbox_inches="tight", facecolor="white")  # <-- fond blanc forcé
+plt.savefig(output_path, dpi=300, bbox_inches="tight", facecolor="white")
+
 print(f"✅ Histogramme littoral/non-littoral enregistré dans : {output_path}")

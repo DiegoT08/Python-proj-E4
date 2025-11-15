@@ -7,30 +7,30 @@ from sqlalchemy import create_engine
 import re
 
 # === Paramètres ===
-DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
+DB_URL = "sqlite:///loyers.db"   # <-- SQLite remplace PostgreSQL
 OUT_DIR = "assets"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # === Connexion à la base de données ===
 def load_data_from_db():
-    """Récupère les données de la table 'loyers' depuis la base de données"""
+    """Récupère les données depuis loyers.db"""
     query = "SELECT * FROM loyers"
     engine = create_engine(DB_URL)
-    df = pd.read_sql(query, engine)
+    with engine.connect() as conn:
+        df = pd.read_sql(query, conn)
     return df
 
 df = load_data_from_db()
 
 # === Nettoyage de la colonne des loyers ===
-# On retire les valeurs manquantes et aberrantes (loyers trop élevés ou négatifs)
 df = df[df["loypredm2"].notna()]
 df = df[df["loypredm2"] > 0]
-df = df[df["loypredm2"] < 60]  # 60 €/m² : coupe les extrêmes (valeurs aberrantes)
+df = df[df["loypredm2"] < 60]  # coupe les extrêmes
 
 # === Filtrer uniquement les arrondissements de Paris ===
 df_paris = df[df["LIBGEO"].str.contains("PARIS", case=False, na=False)].copy()
 
-# === Extraire le numéro d'arrondissement ===
+# === Extraire le numéro d’arrondissement ===
 df_paris["Arrondissement"] = df_paris["LIBGEO"].apply(
     lambda x: re.findall(r"\d+", x)[0] if re.findall(r"\d+", x) else None
 )
@@ -54,7 +54,7 @@ plt.xlabel("Arrondissement", fontsize=12)
 plt.ylabel("Loyer moyen au m² (€)", fontsize=12)
 plt.grid(True, axis="y", alpha=0.3)
 
-# === Sauvegarde et affichage ===
+# === Sauvegarde ===
 output_path = os.path.join(OUT_DIR, "loyer_paris_arrondissements.png")
 plt.savefig(output_path, dpi=300, bbox_inches="tight")
 print(f"✅ Graphique enregistré dans : {output_path}")

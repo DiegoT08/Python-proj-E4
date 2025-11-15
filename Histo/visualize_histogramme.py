@@ -9,14 +9,15 @@ from dash import html
 OUT_DIR = "assets"
 os.makedirs(OUT_DIR, exist_ok=True)
 
-# === Connexion à la base de données ===
-DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
+# === Connexion à la base de données (SQLite) ===
+DB_URL = "sqlite:///loyers.db"   # <-- SQLite remplace PostgreSQL
 
 def load_data_from_db():
-    """Récupère les données de la table 'loyers' depuis la base de données"""
+    """Récupère les données depuis loyers.db"""
     query = "SELECT * FROM loyers"
     engine = create_engine(DB_URL)
-    df = pd.read_sql(query, engine)
+    with engine.connect() as conn:
+        df = pd.read_sql(query, conn)
     return df
 
 # === Fonction d'affichage de tous les histogrammes ===
@@ -51,7 +52,12 @@ def display_histograms():
                     children=[
                         html.Img(
                             src=f"/assets/{img}",
-                            style={"width": "100%", "height": "auto", "border": "1px solid #ccc", "border-radius": "5px"}
+                            style={
+                                "width": "100%",
+                                "height": "auto",
+                                "border": "1px solid #ccc",
+                                "border-radius": "5px"
+                            }
                         ),
                         html.P(
                             legendes.get(img, "Aucune description disponible."),
@@ -62,8 +68,8 @@ def display_histograms():
                 for img in images_order if os.path.exists(os.path.join(OUT_DIR, img))
             ],
             style={
-                "height": "80vh",          # hauteur du conteneur
-                "overflowY": "auto",       # défilement vertical
+                "height": "80vh",
+                "overflowY": "auto",
                 "padding": "10px",
                 "display": "flex",
                 "flexDirection": "column",
@@ -76,7 +82,7 @@ def display_histograms():
 
 # --- Main code ---
 def main():
-    df = load_data_from_db()  # Utilisation de la base de données au lieu du fichier CSV
+    df = load_data_from_db()  
     print(f"✅ Toutes les figures sauvegardées dans {OUT_DIR}")
 
 if __name__ == "__main__":
