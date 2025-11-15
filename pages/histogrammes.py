@@ -1,24 +1,30 @@
-# histogrammes.py
 from dash import html
 import os
 
 # Chemin vers le dossier des images
 assets_path = "assets"
-# On définit un ordre précis pour les images
+
+# On définit un ordre précis pour les images (tous les fichiers d'histogrammes)
 images_order = [
+    "hist_littoral_vs_nonlittoral.png",
+    "hist_ratio_loyer_dep.png",
     "histogramme_loyer_moyen.png",
-    "loyer_paris_arrondissements.png",
+    "loyer_moyen_par_region.png",
+    "loyer_paris_arrondissements.png"
 ]
 
 # Légendes explicatives pour chaque image
 legendes = {
-    "histogramme_loyer_moyen.png": "Histogramme : Distribution des loyers prédits par commune. Montre comment les loyers sont répartis sur toutes les communes.",
-    "loyer_paris_arrondissements.png": "Boxplot : Variation des loyers selon le type de maille. Permet de comparer les loyers entre différents types de prédictions.",
+    "hist_littoral_vs_nonlittoral.png": "Histogramme : Loyer moyen dans les départements littoraux et non littoraux.",
+    "hist_ratio_loyer_dep.png": "Histogramme : Distribution du ratio communal / moyenne départementale des loyers.",
+    "histogramme_loyer_moyen.png": "Histogramme : Distribution des loyers moyens au m² en France.",
+    "loyer_moyen_par_region.png": "Graphique : Loyer moyen par région en France.",
+    "loyer_paris_arrondissements.png": "Graphique : Loyer moyen par arrondissement à Paris."
 }
 
 # Layout de la page
 layout = html.Div([
-    html.H1("Visualisation des histogrammes et graphiques"),
+    html.H1("Visualisation des histogrammes et graphiques", style={"textAlign": "center"}),
 
     html.Div(
         children=[
@@ -39,7 +45,7 @@ layout = html.Div([
                     )
                 ]
             )
-            for img in images_order if os.path.exists(os.path.join(assets_path, img))
+            for img in images_order if os.path.exists(os.path.join(assets_path, img))  # Vérifie si l'image existe dans le dossier assets
         ],
         style={
             "height": "80vh",          # hauteur du conteneur

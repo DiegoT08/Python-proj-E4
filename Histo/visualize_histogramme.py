@@ -1,63 +1,82 @@
-# visualize_histogramme.py
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from Dataset import load_data, select_numeric
+from sqlalchemy import create_engine
+from dash import html
 
 # Dossier de sortie pour les images
 OUT_DIR = "assets"
 os.makedirs(OUT_DIR, exist_ok=True)
 
-def plot_loyer_distribution(df):
-    """Histogramme du loyer prédictif."""
-    plt.figure(figsize=(8,5))
-    plt.hist(df["loypredm2"].dropna(), bins=50, edgecolor='black')
-    plt.title("Distribution des loyers prédits par commune")
-    plt.xlabel("Loyer prédit (€/m²)")
-    plt.ylabel("Nombre de communes")
-    plt.grid(True, linestyle='--', alpha=0.5)
-    plt.tight_layout()
-    plt.savefig(os.path.join(OUT_DIR, "hist_loypredm2.png"))
-    plt.close()
-    print("✅ Histogramme des loyers enregistré.")
+# === Connexion à la base de données ===
+DB_URL = "postgresql+psycopg2://mateo:projetdata@localhost:5432/loyers_db"
 
-def plot_boxplot_typpred(df):
-    """Boxplot des loyers par type de maille."""
-    if "TYPPRED" not in df.columns:
-        print("Colonne TYPPRED non trouvée, boxplot ignoré.")
-        return
-    plt.figure(figsize=(8,5))
-    df.boxplot(column="loypredm2", by="TYPPRED", grid=False)
-    plt.title("Variation des loyers prédits selon le type de maille")
-    plt.suptitle("")
-    plt.xlabel("Type de maille")
-    plt.ylabel("Loyer prédit (€/m²)")
-    plt.tight_layout()
-    plt.savefig(os.path.join(OUT_DIR, "boxplot_typpred.png"))
-    plt.close()
-    print("✅ Boxplot par type de maille enregistré.")
+def load_data_from_db():
+    """Récupère les données de la table 'loyers' depuis la base de données"""
+    query = "SELECT * FROM loyers"
+    engine = create_engine(DB_URL)
+    df = pd.read_sql(query, engine)
+    return df
 
-def plot_correlation(df):
-    """Matrice de corrélation pour les colonnes numériques."""
-    numeric_df = select_numeric(df)
-    if numeric_df.shape[1] < 2:
-        print("Pas assez de colonnes numériques pour corrélation.")
-        return
-    corr = numeric_df.corr()
-    plt.figure(figsize=(6,5))
-    sns.heatmap(corr, annot=True, fmt=".2f", cmap="RdBu_r", vmin=-1, vmax=1)
-    plt.title("Matrice de corrélation des variables numériques")
-    plt.tight_layout()
-    plt.savefig(os.path.join(OUT_DIR, "corr_matrix.png"))
-    plt.close()
-    print("✅ Matrice de corrélation enregistrée.")
+# === Fonction d'affichage de tous les histogrammes ===
+def display_histograms():
+    images_order = [
+        "hist_littoral_vs_nonlittoral.png",
+        "hist_ratio_loyer_dep.png",
+        "histogramme_loyer_moyen.png",
+        "loyer_moyen_par_region.png",
+        "loyer_paris_arrondissements.png"
+    ]
 
+    legendes = {
+        "hist_littoral_vs_nonlittoral.png": "Histogramme : Loyer moyen dans les départements littoraux et non littoraux.",
+        "hist_ratio_loyer_dep.png": "Histogramme : Distribution du ratio communal / moyenne départementale des loyers.",
+        "histogramme_loyer_moyen.png": "Histogramme : Distribution des loyers moyens au m² en France.",
+        "loyer_moyen_par_region.png": "Graphique : Loyer moyen par région en France.",
+        "loyer_paris_arrondissements.png": "Graphique : Loyer moyen par arrondissement à Paris."
+    }
+
+    layout = html.Div([
+        html.H1("Visualisation des histogrammes et graphiques", style={"textAlign": "center"}),
+
+        html.Div(
+            children=[
+                html.Div(
+                    style={
+                        "margin": "20px",
+                        "textAlign": "center",
+                        "width": "80%"
+                    },
+                    children=[
+                        html.Img(
+                            src=f"/assets/{img}",
+                            style={"width": "100%", "height": "auto", "border": "1px solid #ccc", "border-radius": "5px"}
+                        ),
+                        html.P(
+                            legendes.get(img, "Aucune description disponible."),
+                            style={"marginTop": "10px", "fontStyle": "italic", "fontSize": "14px"}
+                        )
+                    ]
+                )
+                for img in images_order if os.path.exists(os.path.join(OUT_DIR, img))
+            ],
+            style={
+                "height": "80vh",          # hauteur du conteneur
+                "overflowY": "auto",       # défilement vertical
+                "padding": "10px",
+                "display": "flex",
+                "flexDirection": "column",
+                "alignItems": "center"
+            }
+        )
+    ])
+
+    return layout
+
+# --- Main code ---
 def main():
-    df = load_data()
-    plot_loyer_distribution(df)
-    plot_boxplot_typpred(df)
-    plot_correlation(df)
+    df = load_data_from_db()  # Utilisation de la base de données au lieu du fichier CSV
     print(f"✅ Toutes les figures sauvegardées dans {OUT_DIR}")
 
 if __name__ == "__main__":

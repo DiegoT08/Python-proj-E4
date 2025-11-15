@@ -1,24 +1,24 @@
-# ...existing code...
 import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sqlalchemy import create_engine
 
 # === Paramètres ===
-DATA_PATH = "data/cleaned/pred-mai-mef-dhup_clean.csv"
-
+DB_URL = "postgresql+psycopg2://mateo:projetdata@localhost:5432/loyers_db"
 OUT_DIR = "assets"
 os.makedirs(OUT_DIR, exist_ok=True)
 
-# === Chargement des données ===
-def load_data(path):
-    if not os.path.exists(path):
-        raise FileNotFoundError(f"{path} introuvable. Copiez le CSV dans le dossier data/")
-    df = pd.read_csv(path, sep=';', encoding='utf-8', low_memory=False)
+# === Connexion à la base de données ===
+def load_data_from_db():
+    """Récupère les données de la table 'loyers' depuis la base de données"""
+    query = "SELECT * FROM loyers"
+    engine = create_engine(DB_URL)
+    df = pd.read_sql(query, engine)
     return df
 
-df = load_data(DATA_PATH)
+df = load_data_from_db()
 
 # === Nettoyage de la colonne des loyers ===
 df = df[df["loypredm2"].notna()]

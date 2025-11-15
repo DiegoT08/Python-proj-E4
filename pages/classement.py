@@ -1,16 +1,25 @@
-# pages/classement.py
-
-
 from dash import html, dcc, dash_table
 import pandas as pd
 import os
 import folium
+from sqlalchemy import create_engine
+
+# -------------------------------
+# 🔹 Connexion à la base de données
+# -------------------------------
+DB_URL = "postgresql+psycopg2://mateo:projetdata@localhost:5432/loyers_db"
+engine = create_engine(DB_URL)
 
 # -------------------------------
 # 🔹 Chargement des données
 # -------------------------------
-data_path = os.path.join("data", "cleaned", "pred-mai-mef-dhup_clean_coords.csv")
-df = pd.read_csv(data_path, sep=";")
+def load_data_from_db():
+    """Récupère les données de la table 'loyers' depuis la base de données"""
+    query = 'SELECT "LIBGEO", "loypredm2", "latitude", "longitude" FROM loyers'
+    df = pd.read_sql(query, engine)
+    return df
+
+df = load_data_from_db()
 
 # 🔹 Vérifie le bon nom de la colonne du loyer
 LOYER_COL = "loypredm2"  # à adapter si besoin
