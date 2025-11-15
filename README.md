@@ -1,27 +1,114 @@
-# Python-proj-E4
+README – PROJET DASHBOARD PYTHON
 
-# Projet Loyers
+GALLINA Matéo
+WU Lucas
+TORRES Diego
 
-## Description
+User Guide
 
-Le projet "Loyers" permet de collecter, nettoyer, analyser et visualiser les données relatives aux loyers en France. Il génère des visualisations interactives pour comparer les loyers moyens par département, entre les départements littoraux et non littoraux, et bien plus encore. Ce projet utilise des technologies telles que Python, Dash, SQLAlchemy et PostgreSQL pour stocker et traiter les données.
+Cette section explique comment installer, lancer et utiliser le dashboard sur n’importe quelle machine.
 
-## Fonctionnalités
+PREREQUIS :
 
-- **Collecte de données** : Le projet charge et nettoie les données de loyers depuis un fichier CSV.
-- **Base de données** : Crée automatiquement la base de données `loyers_db` et la table `loyers` dans PostgreSQL si elles n'existent pas.
-- **Visualisation** : Génère des graphiques et des cartes interactives pour analyser les loyers en fonction de différents critères.
-- **Interface Web** : Un tableau de bord est créé avec Dash pour afficher les résultats de l'analyse, y compris des cartes des loyers par département et des histogrammes.
+Python 3.10 ou supérieur
+Modules listés dans requirements.txt
+Le fichier de données doit être présent à l’emplacement :
+data/cleaned/pred-mai-mef-dhup_clean.csv
 
-## Prérequis
+INSTALLATION :
 
-- Python 3.7+
-- PostgreSQL installé et configuré localement
-- Le fichier `requirements.txt` contient toutes les bibliothèques nécessaires.
-
-### Dépendances
-
-Le projet nécessite plusieurs bibliothèques Python pour fonctionner. Vous pouvez les installer en utilisant `pip` :
-
-```bash
+Cloner le dépôt :
+git clone https://github.com/<votre_repo>.git
+Se rendre dans le dossier :
+cd <votre_repo>
+Installer les dépendances :
 pip install -r requirements.txt
+
+LANCEMENT DU DASHBOARD :
+
+Depuis la racine du projet :
+python3 main.py
+
+UTILISATION :
+
+Le dashboard permet :
+de charger automatiquement les données,
+d’afficher des visualisations interactives,
+d’analyser les zones littorales et non littorales,
+de manipuler les données grâce à plusieurs pages,
+d’enregistrer des graphiques dans le dossier outputs.
+Data
+
+FICHIER PRINCIPAL :
+
+data/cleaned/pred-mai-mef-dhup_clean.csv
+
+DESCRIPTION DES DONNEES :
+
+Les données incluent notamment :
+Types de logements
+Informations géographiques
+Littoral vs non-littoral
+Indicateurs socio-économiques nettoyés
+Les données ont été préalablement nettoyées et harmonisées.
+Developer Guide
+
+ARCHITECTURE DU PROJET :
+
+project/
+│
+├── data/
+│ └── cleaned/
+│ └── pred-mai-mef-dhup_clean.csv
+│
+├── outputs/
+│ └── graphiques générés
+│
+├── pages/
+│ ├── page_littoral.py
+│ ├── page_non_littoral.py
+│ └── ...
+│
+├── assets/
+│ └── styles.css
+│
+├── utils/
+│ └── load.py
+│
+├── main.py
+├── requirements.txt
+└── README.txt
+
+AJOUTER UNE NOUVELLE PAGE :
+
+Créer un fichier dans /pages/, par exemple :
+pages/page_nouvelle_analyse.py
+Déclarer la page dans le fichier :
+dash.register_page(name, path="/nouvelle-analyse")
+Ajouter un layout contenant titres, graphes ou analyses.
+Le dashboard détecte automatiquement la nouvelle page.
+
+AJOUTER UN GRAPHIQUE DANS UNE PAGE :
+
+Importer les données :
+from utils.load import load_data
+df = load_data()
+Créer la figure avec Plotly.
+Ajouter un composant dcc.Graph dans le layout.
+
+RAPPORT D'ANALYSE
+Principales conclusions du projet :
+
+Les zones littorales et non littorales présentent des comportements différents.
+Les types de logements montrent des répartitions contrastées selon les zones.
+Certains départements affichent des valeurs atypiques qui ressortent dans les visualisations.
+Les graphiques ont permis d’identifier des tendances fortes et des dynamiques régionales.
+Le dashboard facilite la compréhension des disparités territoriales en France.
+Les visualisations interactives permettent d’explorer les données facilement.
+
+COPYRIGHT :
+
+Une partie du code présent dans ce projet a été rédigée à l’aide d’outils d’assistance au développement, notamment GitHub Copilot et ChatGPT.
+Ces outils ont été utilisés pour accélérer l’écriture de certaines fonctions, proposer des structures de fichiers et suggérer des corrections syntaxiques ou logiques.
+Toutefois, l’intégration, l’adaptation, la vérification et la validation finale du code ont été réalisées par l’auteur du projet.
+Les parties générées automatiquement ont été relues, comprises et modifiées si nécessaire afin de garantir leur adéquation avec les objectifs du travail.
