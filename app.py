@@ -2,7 +2,7 @@ import os
 import subprocess
 from dash import Dash, html, dcc
 from dash.dependencies import Input, Output
-from pages import home, carte, histogrammes, classement  # ← assure-toi que toutes les pages sont importées
+from pages import home, carte, histogrammes, classement  # Assure-toi que toutes les pages sont importées
 
 # --- Fonction pour exécuter les scripts ---
 def run_script(script_name):
@@ -37,7 +37,7 @@ def main():
     run_script('Histo/Histo_paris.py')  # Histogramme Loyer Paris
 
     # 4. Générer la carte Folium
-    run_script('carte/carte.py')  # Créer la carte Folium
+    run_script('pages/carte.py')  # Créer la carte Folium
 
     # 5. Lancer le dashboard
     print("🔘 Lancement du dashboard...")
@@ -75,7 +75,7 @@ def main():
     )
     def display_page(pathname):
         if pathname == '/carte':
-            return carte.layout
+            return carte.layout  # Utilisation de `carte.layout`
         elif pathname == '/histogrammes':
             return histogrammes.layout
         elif pathname == '/classement':
