@@ -1,4 +1,6 @@
-Histogramme
-carte géographique 
-statistiques descriptives
-autres graphes
+pandas==2.0.2
+sqlalchemy==2.0.12
+psycopg2==2.9.6
+folium==0.14.0
+matplotlib==3.7.2
+seaborn==0.12.2
