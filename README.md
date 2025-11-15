@@ -18,9 +18,9 @@ data/cleaned/pred-mai-mef-dhup_clean.csv
 INSTALLATION :
 
 Cloner le dépôt :
-git clone https://github.com/<votre_repo>.git
+git clone 
 Se rendre dans le dossier :
-cd <votre_repo>
+cd 
 Installer les dépendances :
 pip install -r requirements.txt
 
