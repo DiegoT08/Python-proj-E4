@@ -1,16 +1,16 @@
+import os
 import pandas as pd
 import folium
 import requests
-import json
-from datetime import datetime
 from sqlalchemy import create_engine
+from datetime import datetime
 
 # === 1️⃣ Connexion à la base de données ===
 DB_URL = "postgresql+psycopg2://mateo:projetdata@localhost:5432/loyers_db"
 engine = create_engine(DB_URL)
 
 # === 2️⃣ Charger les données depuis la base de données ===
-query = "SELECT DEP, loypredm2 FROM loyers WHERE loypredm2 IS NOT NULL"
+query = 'SELECT "DEP", loypredm2 FROM loyers WHERE loypredm2 IS NOT NULL'
 df = pd.read_sql(query, engine)
 print("Données chargées :", df.shape)
 
@@ -98,9 +98,9 @@ folium.TileLayer(
     control=False
 ).add_to(m)
 
-# === 9️⃣ Sauvegarder la carte avec un nom unique ===
+# === 9️⃣ Sauvegarder la carte avec un nom unique dans le dossier `assets` ===
 stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-OUTPUT_PATH = f"outputs/carte_loyers_dep_{stamp}.html"
+OUTPUT_PATH = os.path.join("assets", f"carte_loyers_dep_{stamp}.html")
 m.save(OUTPUT_PATH)
 print(f"✅ Carte enregistrée : {OUTPUT_PATH}")
 print(f"Ouvrez ensuite : /{OUTPUT_PATH}")
