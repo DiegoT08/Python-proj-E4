@@ -57,23 +57,32 @@ ARCHITECTURE DU PROJET :
 
 project/
 │
+│
+│
+├── bdd/
+│   └── db.py
+│   └── import_to_postgre.py #avant sous postgre maintenant sous sqlite
+│
+│
 ├── data/
 │ └── cleaned/
-│ └── pred-mai-mef-dhup_clean.csv
+│        └── pred-mai-mef-dhup_clean.csv
+│        └── pred-mai-mef-dhup_clean_coords.csv
+│ └── raw/
+│        └── pred-mai-mef-dhup.csv
 │
-├── outputs/
-│ └── graphiques générés
-│
-├── pages/
-│ ├── page_littoral.py
-│ ├── page_non_littoral.py
-│ └── ...
+├── Histo/
+│        └── tous_les_fichiers_de_création_d_Histo.py
 │
 ├── assets/
+│ └── graphiques générés
 │ └── styles.css
 │
-├── utils/
-│ └── load.py
+├── pages/
+│ ├── home.py
+│ ├── carte.py
+│ └── ...
+│
 │
 ├── main.py
 ├── requirements.txt
