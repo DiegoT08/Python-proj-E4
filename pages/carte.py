@@ -8,7 +8,7 @@ import requests
 # -------------------------------
 # 🔹 Connexion à la base de données
 # -------------------------------
-DB_URL = "postgresql+psycopg2://mateo:projetdata@localhost:5432/loyers_db"
+DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
 engine = create_engine(DB_URL)
 
 # -------------------------------

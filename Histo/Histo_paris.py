@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 import re
 
 # === Paramètres ===
-DB_URL = "postgresql+psycopg2://mateo:projetdata@localhost:5432/loyers_db"
+DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
 OUT_DIR = "assets"
 os.makedirs(OUT_DIR, exist_ok=True)
 
@@ -57,6 +57,4 @@ plt.grid(True, axis="y", alpha=0.3)
 # === Sauvegarde et affichage ===
 output_path = os.path.join(OUT_DIR, "loyer_paris_arrondissements.png")
 plt.savefig(output_path, dpi=300, bbox_inches="tight")
-plt.show()
-
 print(f"✅ Graphique enregistré dans : {output_path}")

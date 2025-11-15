@@ -3,7 +3,8 @@ from sqlalchemy import create_engine, text  # Importer 'text' de SQLAlchemy
 
 # --- Paramètres ---
 CSV_PATH = "data/cleaned/pred-mai-mef-dhup_clean_coords.csv"
-DB_URL = "postgresql+psycopg2://mateo:projetdata@localhost:5432/loyers_db"
+DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
+DB_NAME = "loyers_db"
 
 # --- Charger le CSV dans un DataFrame ---
 df = pd.read_csv(CSV_PATH, sep=';', encoding='utf-8')

@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 # -------------------------------
 # 🔹 Connexion à la base de données
 # -------------------------------
-DB_URL = "postgresql+psycopg2://mateo:projetdata@localhost:5432/loyers_db"
+DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
 engine = create_engine(DB_URL)
 
 # -------------------------------
@@ -38,7 +38,9 @@ bottom10 = df.nsmallest(10, LOYER_COL)[["LIBGEO", LOYER_COL, LAT_COL, LON_COL]]
 # -------------------------------
 m = folium.Map(location=[46.6, 2.2], zoom_start=6)
 
-# Ajoute les points du Top 10
+# -------------------------------
+# 🔹 Ajouter les points du Top 10 (loyers les plus élevés)
+# -------------------------------
 for _, row in top10.iterrows():
     if pd.notna(row[LAT_COL]) and pd.notna(row[LON_COL]):
         folium.Marker(
@@ -47,7 +49,20 @@ for _, row in top10.iterrows():
             icon=folium.Icon(color="red")
         ).add_to(m)
 
-# Sauvegarde la carte dans /assets
+# -------------------------------
+# 🔹 Ajouter les points du Bottom 10 (loyers les plus faibles)
+# -------------------------------
+for _, row in bottom10.iterrows():
+    if pd.notna(row[LAT_COL]) and pd.notna(row[LON_COL]):
+        folium.Marker(
+            location=[row[LAT_COL], row[LON_COL]],
+            popup=f"{row['LIBGEO']} - {row[LOYER_COL]} €/m²",
+            icon=folium.Icon(color="blue")
+        ).add_to(m)
+
+# -------------------------------
+# 🔹 Sauvegarder la carte dans /assets
+# -------------------------------
 map_path = os.path.join("assets", "map_classement.html")
 m.save(map_path)
 
@@ -78,7 +93,7 @@ layout = html.Div([
     ),
 
     html.Br(),
-    html.H2("Carte des villes du Top 10", style={"textAlign": "center"}),
+    html.H2("Carte des villes du Top 10 et Bottom 10", style={"textAlign": "center"}),
     html.Iframe(
         src="/assets/map_classement.html",
         style={"width": "100%", "height": "600px", "border": "none"}

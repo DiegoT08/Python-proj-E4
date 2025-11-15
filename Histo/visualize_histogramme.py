@@ -10,7 +10,7 @@ OUT_DIR = "assets"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # === Connexion à la base de données ===
-DB_URL = "postgresql+psycopg2://mateo:projetdata@localhost:5432/loyers_db"
+DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
 
 def load_data_from_db():
     """Récupère les données de la table 'loyers' depuis la base de données"""

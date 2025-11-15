@@ -6,7 +6,7 @@ import matplotlib as mpl
 from sqlalchemy import create_engine
 
 # === Paramètres ===
-DB_URL = "postgresql+psycopg2://mateo:projetdata@localhost:5432/loyers_db"
+DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
 OUT_DIR = "assets"
 os.makedirs(OUT_DIR, exist_ok=True)
 
@@ -90,6 +90,4 @@ plt.tight_layout()
 # === Sauvegarde ===
 output_path = os.path.join(OUT_DIR, "hist_littoral_vs_nonlittoral.png")
 plt.savefig(output_path, dpi=300, bbox_inches="tight", facecolor="white")  # <-- fond blanc forcé
-plt.show()
-
 print(f"✅ Histogramme littoral/non-littoral enregistré dans : {output_path}")

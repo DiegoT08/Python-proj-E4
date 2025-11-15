@@ -6,7 +6,7 @@ import seaborn as sns
 from sqlalchemy import create_engine
 
 # === Paramètres ===
-DB_URL = "postgresql+psycopg2://mateo:projetdata@localhost:5432/loyers_db"
+DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
 OUT_DIR = "assets"
 os.makedirs(OUT_DIR, exist_ok=True)
 
@@ -75,7 +75,5 @@ plt.grid(True, alpha=0.3)
 # === Sauvegarde ===
 output_path = os.path.join(OUT_DIR, "hist_ratio_loyer_dep.png")
 plt.savefig(output_path, dpi=300, bbox_inches="tight")
-plt.show()
-
 print(f"✅ Histogramme enregistré dans {output_path}")
 print(f"Moyenne du ratio : {mean_ratio:.3f} | Médiane : {median_ratio:.3f} | Écart-type : {std_ratio:.3f}")
