@@ -1,12 +1,16 @@
 import os
-from sqlalchemy import create_engine, Table, Column, Integer, Float, String, MetaData
+from dotenv import load_dotenv
+from sqlalchemy import create_engine, Column, Integer, Float, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.exc import OperationalError
 import psycopg2
 
-# Configuration de la connexion PostgreSQL
-DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
-DB_NAME = "loyers_db"
+# Charger les variables d'environnement à partir du fichier .env
+load_dotenv()
+
+# Configuration de la connexion PostgreSQL en utilisant les variables d'environnement
+DB_URL = f"postgresql+psycopg2://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+DB_NAME = os.getenv('DB_NAME')
 engine = create_engine(DB_URL)
 Base = declarative_base()
 
@@ -26,19 +30,20 @@ def create_database():
     try:
         # Connexion à PostgreSQL pour créer la base de données
         connection = psycopg2.connect(
-            dbname="postgres", user="postgres", password="projetdata", host="localhost", port="5432"
+            dbname="postgres", user=os.getenv('DB_USER'), password=os.getenv('DB_PASSWORD'),
+            host=os.getenv('DB_HOST'), port=os.getenv('DB_PORT')
         )
         connection.autocommit = True
         cursor = connection.cursor()
 
         # Créer la base de données si elle n'existe pas
-        cursor.execute("SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'loyers_db'")
+        cursor.execute("SELECT 1 FROM pg_catalog.pg_database WHERE datname = %s", (DB_NAME,))
         exists = cursor.fetchone()
         if not exists:
-            cursor.execute('CREATE DATABASE loyers_db')
-            print("Base de données 'loyers_db' créée avec succès.")
+            cursor.execute(f'CREATE DATABASE {DB_NAME}')
+            print(f"Base de données '{DB_NAME}' créée avec succès.")
         else:
-            print("La base de données 'loyers_db' existe déjà.")
+            print(f"La base de données '{DB_NAME}' existe déjà.")
 
         cursor.close()
         connection.close()
@@ -49,7 +54,7 @@ def create_database():
 def create_table():
     try:
         # Connexion à la base de données loyers_db
-        engine_db = create_engine(f"postgresql+psycopg2://postgres:projetdata@localhost:5432/{DB_NAME}")
+        engine_db = create_engine(DB_URL)
         Base.metadata.create_all(engine_db)
         print("Table 'loyers' créée avec succès.")
     except OperationalError as e:

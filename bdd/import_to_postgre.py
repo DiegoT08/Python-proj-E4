@@ -1,10 +1,15 @@
+import os
 import pandas as pd
-from sqlalchemy import create_engine, text  # Importer 'text' de SQLAlchemy
+from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
+
+# Charger les variables d'environnement à partir du fichier .env
+load_dotenv()
 
 # --- Paramètres ---
-CSV_PATH = "data/cleaned/pred-mai-mef-dhup_clean_coords.csv"
-DB_URL = "postgresql+psycopg2://postgres:projetdata@localhost:5432/loyers_db"
-DB_NAME = "loyers_db"
+CSV_PATH = "data/cleaned/pred-mai-mef-dhup_clean_coords.csv"  # Remplacez par le chemin de votre fichier CSV
+DB_URL = f"postgresql+psycopg2://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+DB_NAME = os.getenv('DB_NAME')
 
 # --- Charger le CSV dans un DataFrame ---
 df = pd.read_csv(CSV_PATH, sep=';', encoding='utf-8')

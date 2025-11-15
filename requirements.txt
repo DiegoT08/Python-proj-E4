@@ -4,3 +4,5 @@ psycopg2==2.9.6
 folium==0.14.0
 matplotlib==3.7.2
 seaborn==0.12.2
+dotenv==1.0.0
+# A noter que psql POSTGRESQL doit être installé sur la machine pour que psycopg2 fonctionne correctement.
